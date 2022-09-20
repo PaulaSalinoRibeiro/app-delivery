@@ -9,7 +9,7 @@ const Products = (sequelize, DataTypes) => {
     underscored: true,
   });
 
- 
+ return Products;
 }
 
 module.exports = Products

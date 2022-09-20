@@ -22,7 +22,7 @@ const login = async ({ email, password }) => {
 
   const token = createToken(userLogin.email);
 
-  return token;
+  return { token };
 };
 
 module.exports = {
