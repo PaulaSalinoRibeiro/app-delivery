@@ -6,10 +6,10 @@ const httpStatusCode = {
   NotFound: 404,
 };
 
-const erroHandler = (err, _req, res, _next) => {
+const erroMiddleware = (err, _req, res, _next) => {
   const { code } = err;
   if (!code) return res.status(httpStatusCode.InternalServer).json({ message: err.message });
   res.status(httpStatusCode[code]).json({ message: err.message });
 };
 
-module.exports = erroHandler;
+module.exports = erroMiddleware;
