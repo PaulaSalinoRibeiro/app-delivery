@@ -12,14 +12,14 @@ const Sale = (sequelize, DataTypes) => {
     timestamps: false,
     undesrcored: true,
   })
+
+  return Sale;
 }
 
 Sale.associate = (models) => {
   Sale.belongsTo(models.User, {
     foreingKey: 'userId', as: 'user'
   });
-
-  return Sale;
 }
 
 module.exports = Sale;

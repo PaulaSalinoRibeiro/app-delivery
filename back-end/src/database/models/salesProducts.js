@@ -7,6 +7,8 @@ const salesProduct = (sequelize, DataTypes) => {
     timestamps: false,
     undesrcored: true,
   })
+
+  return salesProduct;
 }
 
 salesProduct.associate = (models) => {
