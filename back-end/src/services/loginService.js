@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const HandleErro = require('../utils/handleError');
 const { createToken } = require('../utils/jwt');
+const { checkPassword } = require('../utils/bcrypt');
 const { User } = require('../database/models');
 
 const loginSchema = Joi.object({
@@ -17,7 +18,7 @@ const login = async ({ email, password }) => {
 
   if (!userLogin) throw new HandleErro('BadRequest', 'Invalid fields');
 
-  // check password
+  checkPassword(password, userLogin.password);
 
   const token = createToken(userLogin.email);
 
