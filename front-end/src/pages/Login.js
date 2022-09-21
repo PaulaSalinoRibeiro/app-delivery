@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../images/Logo.png';
 import login from '../services/login';
 
@@ -11,6 +12,8 @@ function Login() {
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const [isBtnDisabled, setBtnDisabled] = useState(true);
   const keyLocalStorage = '@app-delivery:token';
+
+  const navigate = useNavigate();
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
@@ -36,7 +39,8 @@ function Login() {
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
-    return result;
+
+    if (result.role === 'customer') navigate('/customer/products');
   }
 
   return (
@@ -79,6 +83,7 @@ function Login() {
         <button
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
         </button>
