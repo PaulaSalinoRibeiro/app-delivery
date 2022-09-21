@@ -1,15 +1,15 @@
-const bcrypt = require('bcrypt');
+const md5 = require('md5');
 const HandleErro = require('./handleError');
 
 const encryptPassword = (password) => {
-  const salt = bcrypt.genSaltSync(5);
-  const passwordHash = bcrypt.hashSync(password, salt);
+  const passwordHash = md5(password);
   return passwordHash;
 };
 
 const checkPassword = (password, passwordHash) => {
-  const isMatch = bcrypt.compareSync(password, passwordHash);
-  if (!isMatch) {
+  const encript = md5(password);
+
+  if (encript !== passwordHash) {
     throw new HandleErro('Unauthorized', 'Incorrect email or password');
   }
 };
