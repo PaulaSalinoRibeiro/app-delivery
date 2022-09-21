@@ -4,7 +4,7 @@ const { DECIMAL } = require("sequelize");
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Sales', {
+    await queryInterface.createTable('sales', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = {
         field: 'user_id',
         type: Sequelize.INTEGER,
         referencies : {
-          model: 'Users',
+          model: 'users',
           key: 'id',
         },
         onDelete: 'CASCADE',
@@ -27,7 +27,7 @@ module.exports = {
         field: 'seller_id',
         type: Sequelize.INTEGER,
         referencies : {
-          model: 'Users',
+          model: 'users',
           key: 'id',
         },
         onDelete: 'CASCADE',
@@ -61,6 +61,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Sales', {})
+    await queryInterface.dropTable('sales', {})
   }
 };

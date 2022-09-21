@@ -20,7 +20,7 @@ const login = async ({ email, password }) => {
 
   checkPassword(password, userLogin.password);
 
-  const token = createToken(userLogin.email);
+  const token = createToken({ email: userLogin.email, role: userLogin.role });
 
   return { token };
 };
