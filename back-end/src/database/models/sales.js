@@ -13,6 +13,7 @@ const Sale = (sequelize, DataTypes) => {
     saleDate: { type: DataTypes.DATE },
     status: { type: DataTypes.STRING }
   }, {
+    tableName: 'sales',
     timestamps: false,
     undesrcored: true,
   })

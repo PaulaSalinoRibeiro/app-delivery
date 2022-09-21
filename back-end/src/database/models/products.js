@@ -15,6 +15,7 @@ const Product = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     }
   }, {
+    tableName: 'products',
     timestamps: false,
     underscored: true,
   });
