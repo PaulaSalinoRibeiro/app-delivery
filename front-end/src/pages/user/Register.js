@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import register from '../../services/register';
 
 function Register() {
   const [data, setData] = useState({
@@ -6,24 +7,38 @@ function Register() {
     password: '',
   });
   const [isBtnDisabled, setBtnDisabled] = useState(true);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedServerConnection, setFailedServerConnection] = useState(false);
+  const keyLocalStorage = '@app-delivery:token';
 
   useEffect(() => {
     const { email, password, name } = data;
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;
     const nameMinLength = 12;
-    if (emailRegex.test(email) && password.length > passwordMinLength
+    if (emailRegex.test(email) && password.length >= passwordMinLength
     && name.length > nameMinLength) {
       setBtnDisabled(false);
     }
-    if (!emailRegex.test(email) || password.length <= passwordMinLength
-    || name.length <= nameMinLength) {
+    if (!emailRegex.test(email) || password.length < passwordMinLength
+    || name.length < nameMinLength) {
+      setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
+  }
+
+  async function sendData() {
+    const result = await register(data);
+    if (!result) {
+      setFailedServerConnection(true);
+      return;
+    }
+    localStorage.setItem(keyLocalStorage, JSON.stringify(result));
+    return result;
   }
 
   return (
@@ -69,11 +84,36 @@ function Register() {
         <button
           type="button"
           disabled={ isBtnDisabled }
+          onClick={ sendData }
           data-testid="common_register__button-register"
         >
           CADASTRAR
         </button>
       </form>
+      {
+        (failedTryLogin)
+          ? (
+            <p data-testid="common_login__element-invalid_register">
+              {
+                `O endereço de e-mail, senha ou nome não estão corretos.
+                  Por favor, tente novamente.`
+              }
+            </p>
+          )
+          : null
+      }
+      {
+        (failedServerConnection)
+          ? (
+            <p data-testid="common_login__element-invalid_register">
+              {
+                `Sistema fora do ar.
+                  Por favor, tente novamente.`
+              }
+            </p>
+          )
+          : null
+      }
     </main>
   );
 }
