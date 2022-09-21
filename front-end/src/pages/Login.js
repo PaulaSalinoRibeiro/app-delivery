@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../images/Logo.png';
 
 function Login() {
@@ -6,12 +6,24 @@ function Login() {
     email: '',
     password: '',
   });
-
   const [failedTryLogin] = useState(false);
+  const [isBtnDisabled, setBtnDisabled] = useState(true);
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
   }
+
+  useEffect(() => {
+    const { email, password } = data;
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const passwordMinLength = 6;
+    if (emailRegex.test(email) && password.length > passwordMinLength) {
+      setBtnDisabled(false);
+    }
+    if (!emailRegex.test(email) || password.length <= passwordMinLength) {
+      setBtnDisabled(true);
+    }
+  }, [data]);
 
   return (
     <section>
@@ -44,6 +56,7 @@ function Login() {
         </label>
         <button
           type="button"
+          disabled={ isBtnDisabled }
           data-testid="common_login__button-login"
         >
           LOGIN
