@@ -8,7 +8,6 @@ const userSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-  role: Joi.string().required(),
 });
 
 const createUser = async (user) => {
@@ -19,9 +18,9 @@ const createUser = async (user) => {
   const { password } = user;
   const passwordHash = encryptPassword(password);
 
-  const newUser = await User.create({ ...user, password: passwordHash });
+  const newUser = await User.create({ ...user, password: passwordHash, role: 'customer' });
 
-  const token = createToken({ email: user.email, role: user.role });
+  const token = createToken({ email: user.email, role: 'customer' });
 
   return {
     token,
