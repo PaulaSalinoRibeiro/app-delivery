@@ -1,15 +1,25 @@
-const Products = (sequelize, DataTypes) => {
-  const Products = sequelize.define('Product', {
-    id: { type: DataTypes.INTEGER, primaryKey: true},
-    name: DataTypes.STRING,
-    price: DataTypes.DECIMAL,
-    url:  DataTypes.STRING,
+const Product = (sequelize, DataTypes) => {
+  const Product = sequelize.define('Product', {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    name: {
+      type: DataTypes.STRING,
+    },
+    price: {
+      type: DataTypes.DECIMAL,
+    },
+    urlImage:  {
+      type: DataTypes.STRING,
+    }
   }, {
     timestamps: false,
     underscored: true,
   });
 
- return Products;
+ return Product;
 }
 
-module.exports = Products
+module.exports = Product
