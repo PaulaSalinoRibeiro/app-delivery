@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../images/Logo.png';
+import login from '../services/login';
 
 function Login() {
   const [data, setData] = useState({
     email: '',
     password: '',
   });
-  const [failedTryLogin] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedServerConnection, setFailedServerConnection] = useState(false);
   const [isBtnDisabled, setBtnDisabled] = useState(true);
+  const keyLocalStorage = '@app-delivery:token';
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
@@ -15,15 +18,26 @@ function Login() {
 
   useEffect(() => {
     const { email, password } = data;
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;
-    if (emailRegex.test(email) && password.length > passwordMinLength) {
+    if (emailRegex.test(email) && password.length >= passwordMinLength) {
       setBtnDisabled(false);
     }
-    if (!emailRegex.test(email) || password.length <= passwordMinLength) {
+    if (!emailRegex.test(email) || password.length < passwordMinLength) {
+      setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
+
+  async function sendData() {
+    const result = await login(data);
+    if (!result) {
+      setFailedServerConnection(true);
+      return;
+    }
+    localStorage.setItem(keyLocalStorage, JSON.stringify(result));
+    return result;
+  }
 
   return (
     <section>
@@ -57,6 +71,7 @@ function Login() {
         <button
           type="button"
           disabled={ isBtnDisabled }
+          onClick={ sendData }
           data-testid="common_login__button-login"
         >
           LOGIN
@@ -77,6 +92,15 @@ function Login() {
                 `O endereço de e-mail ou a senha não estão corretos.
                   Por favor, tente novamente.`
               }
+            </p>
+          )
+          : null
+      }
+      {
+        (failedServerConnection)
+          ? (
+            <p data-testid="common_login__element-invalid-email">
+              Sistema fora do ar, porfavor tente mais tarde.
             </p>
           )
           : null
