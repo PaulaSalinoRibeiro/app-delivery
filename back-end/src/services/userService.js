@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const HandleErro = require('../utils/handleError');
 const { User } = require('../database/models');
-const { encryptPassword } = require('../utils/bcrypt');
+const { encryptPassword } = require('../utils/md5');
 const { createToken } = require('../utils/jwt');
 
 const userSchema = Joi.object({
@@ -19,11 +19,14 @@ const createUser = async (user) => {
   const { password } = user;
   const passwordHash = encryptPassword(password);
 
-  await User.create({ ...user, password: passwordHash });
+  const newUser = await User.create({ ...user, password: passwordHash });
 
   const token = createToken({ email: user.email, role: user.role });
 
-  return token;
+  return {
+    token,
+    role: newUser.role,
+  };
 };
 
 const deleteUser = async (id) => User.destroy({ where: { id } });
