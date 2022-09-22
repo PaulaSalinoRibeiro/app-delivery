@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 function NavBar() {
   const navigate = useNavigate();
 
-  const { name, role } = JSON.parse(localStorage.getItem('user'));
+  const { name, role } = JSON.parse(localStorage.getItem('@app-delivery:token'));
 
   function onClickLogoutHandler() {
-    localStorage.removeItem('carrinho');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('carrinho');
+    localStorage.removeItem('@app-delivery:token');
     navigate('/login');
   }
 
