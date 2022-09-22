@@ -14,7 +14,7 @@ export default function Products() {
       </S.Container>
       <button
         type="button"
-        onClick={ () => navigate('/cart') }
+        onClick={ () => navigate('/customer/checkout') }
         data-testid="customer_products__checkout-bottom-value"
       >
         Ver Carrinho: R$:
