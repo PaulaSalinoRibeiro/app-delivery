@@ -17,7 +17,7 @@ const createProduct = async (product) => {
 
 const deleteProduct = async (id) => Product.destroy({ where: { id } });
 
-const getProductById = async (id) => Product.find({ where: { id } });
+const getProductById = async (id) => Product.findOne({ where: { id } });
 
 const getProducts = async () => Product.findAll();
 
