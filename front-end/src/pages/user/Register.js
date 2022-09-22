@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import register from '../../services/register';
+import { register } from '../../services/api';
 
 function Register() {
   const [data, setData] = useState({
@@ -12,7 +12,6 @@ function Register() {
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const keyLocalStorage = '@app-delivery:token';
-  const navigate = useNavigate();
 
   const navigate = useNavigate();
 
@@ -37,21 +36,17 @@ function Register() {
 
   async function sendData() {
     const result = await register(data);
-    console.log(!result);
+
     if (!result) {
       setFailedServerConnection(true);
       setFailedTryLogin(true);
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
-<<<<<<< HEAD
-    navigate('/customer/products');
-    // return result;
-=======
+
     if (result.role === 'customer') navigate('/customer/products');
 
     return result;
->>>>>>> 60964e5aa67b46127869718b05169d49fec8add6
   }
 
   return (
