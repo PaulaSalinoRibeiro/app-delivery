@@ -1,9 +1,22 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const HandleErro = require('./handleError');
 
+let secret;
+
+fs.readFile(
+  './jwt.evaluation.key', 'utf8', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  secret = data;
+},
+);
+
 const createToken = ({ email, role }) => {
-  const token = jwt.sign({ data: { email, role } }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ data: { email, role } }, secret, {
     expiresIn: '30d',
       algorithm: 'HS256',
   });
@@ -12,7 +25,7 @@ const createToken = ({ email, role }) => {
 
 const checkToken = (token) => {
   try {
-    const { data } = jwt.verify(token, process.env.JWT_SECRET);
+    const { data } = jwt.verify(token, secret);
     return data;
   } catch (_err) {
     throw new HandleErro('Unauthorized', 'Expired or invalid token');
