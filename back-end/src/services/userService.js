@@ -15,16 +15,16 @@ const createUser = async (user) => {
 
   if (error) throw new HandleErro('BadRequest', 'Some required fields are missing');
   
-  const { password, email } = user;
+  const { password } = user;
   const passwordHash = encryptPassword(password);
 
-  const {dataValues} = await User.create({ ...user, password: passwordHash, role: 'customer' });
+  const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
 
   if (await User.findOne({ where: { email: user.email } })) {
     throw new HandleErro('Conflict', 'User already exists');
   }
   
-  const newUser = await User.create({ ...user, password: passwordHash, role: 'customer' });
+  await User.create({ ...user, password: passwordHash, role: 'customer' });
 
   const token = createToken({ email: user.email, role: 'customer' });
 
@@ -34,7 +34,7 @@ const createUser = async (user) => {
       name: dataValues.name,
       email: dataValues.email,
       role: dataValues.role,
-    }
+    },
   };
 };
 
