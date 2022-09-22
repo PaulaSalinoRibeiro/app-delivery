@@ -1,55 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/Logo.png';
-import login from '../services/login';
+import { register } from '../../services/api';
 
-function Login() {
+function Register() {
   const [data, setData] = useState({
+    name: '',
     email: '',
     password: '',
   });
+  const [isBtnDisabled, setBtnDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [failedServerConnection, setFailedServerConnection] = useState(false);
-  const [isBtnDisabled, setBtnDisabled] = useState(true);
   const keyLocalStorage = '@app-delivery:token';
 
   const navigate = useNavigate();
 
-  function handleChange({ target: { name, value } }) {
-    setData((state) => ({ ...state, [name]: value }));
-  }
-
   useEffect(() => {
-    const { email, password } = data;
+    const { email, password, name } = data;
     const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;
-    if (emailRegex.test(email) && password.length >= passwordMinLength) {
+    const nameMinLength = 12;
+    if (emailRegex.test(email) && password.length >= passwordMinLength
+    && name.length >= nameMinLength) {
       setBtnDisabled(false);
     }
-    if (!emailRegex.test(email) || password.length < passwordMinLength) {
+    if (!emailRegex.test(email) || password.length < passwordMinLength
+    || name.length < nameMinLength) {
       setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
 
+  function handleChange({ target: { name, value } }) {
+    setData((state) => ({ ...state, [name]: value }));
+  }
+
   async function sendData() {
-    const result = await login(data);
+    const result = await register(data);
+    console.log(!result);
     if (!result) {
       setFailedServerConnection(true);
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
-
-    if (result.role === 'customer') navigate('/customer/products');
+    navigate('/customer/products');
+    // return result;
   }
 
   return (
-    <section>
-      <img src={ logo } alt="Logo do App de Delivery" />
-      <h1>App de Delivery</h1>
+    <main>
+      <h1>Cadastro</h1>
       <form>
+        <label htmlFor="input-name">
+          Nome
+          <input
+            type="text"
+            id="input-name"
+            name="name"
+            value={ data.name }
+            onChange={ handleChange }
+            placeholder="Seu nome"
+            data-testid="common_register__input-name"
+          />
+        </label>
         <label htmlFor="input-email">
-          Login
+          Email
           <input
             type="email"
             id="input-email"
@@ -57,7 +72,7 @@ function Login() {
             value={ data.email }
             onChange={ handleChange }
             placeholder="seu-email@site.com.br"
-            data-testid="common_login__input-email"
+            data-testid="common_register__input-email"
           />
         </label>
         <label htmlFor="input-password">
@@ -69,32 +84,24 @@ function Login() {
             value={ data.password }
             onChange={ handleChange }
             placeholder="*********"
-            data-testid="common_login__input-password"
+            data-testid="common_register__input-password"
           />
         </label>
         <button
           type="button"
           disabled={ isBtnDisabled }
           onClick={ sendData }
-          data-testid="common_login__button-login"
+          data-testid="common_register__button-register"
         >
-          LOGIN
-        </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => navigate('/register') }
-        >
-          Ainda não tenho conta
+          CADASTRAR
         </button>
       </form>
-
       {
         (failedTryLogin)
           ? (
-            <p data-testid="common_login__element-invalid-email">
+            <p data-testid="common_login__element-invalid_register">
               {
-                `O endereço de e-mail ou a senha não estão corretos.
+                `O endereço de e-mail, senha ou nome não estão corretos.
                   Por favor, tente novamente.`
               }
             </p>
@@ -104,14 +111,16 @@ function Login() {
       {
         (failedServerConnection)
           ? (
-            <p data-testid="common_login__element-invalid-email">
-              Sistema fora do ar, porfavor tente mais tarde.
+            <p data-testid="common_register__element-invalid_register">
+              {
+                `Sistema fora do ar.
+                  Por favor, tente novamente.`
+              }
             </p>
           )
           : null
       }
-    </section>
+    </main>
   );
 }
-
-export default Login;
+export default Register;
