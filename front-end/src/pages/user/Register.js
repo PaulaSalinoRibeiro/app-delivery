@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import register from '../../services/register';
 
 function Register() {
   const [data, setData] = useState({
+    name: '',
     email: '',
     password: '',
   });
@@ -11,13 +13,15 @@ function Register() {
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const keyLocalStorage = '@app-delivery:token';
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const { email, password, name } = data;
     const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;
     const nameMinLength = 12;
     if (emailRegex.test(email) && password.length >= passwordMinLength
-    && name.length > nameMinLength) {
+    && name.length >= nameMinLength) {
       setBtnDisabled(false);
     }
     if (!emailRegex.test(email) || password.length < passwordMinLength
@@ -33,12 +37,14 @@ function Register() {
 
   async function sendData() {
     const result = await register(data);
+    console.log(!result);
     if (!result) {
       setFailedServerConnection(true);
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
-    return result;
+    navigate('/customer/products');
+    // return result;
   }
 
   return (
@@ -105,7 +111,7 @@ function Register() {
       {
         (failedServerConnection)
           ? (
-            <p data-testid="common_login__element-invalid_register">
+            <p data-testid="common_register__element-invalid_register">
               {
                 `Sistema fora do ar.
                   Por favor, tente novamente.`

@@ -6,9 +6,10 @@ const instance = axios.create({
 
 const register = async ({ name, email, password }) => {
   try {
-    const { data } = await instance.post('/register', { name, email, password });
+    const { data } = await instance.post('/user', { name, email, password });
     return data;
   } catch (err) {
+    console.log(err.message);
     return null;
   }
 };
