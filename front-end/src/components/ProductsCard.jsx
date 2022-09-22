@@ -41,21 +41,28 @@ export default function ProductsCard() {
 
   return (
     <S.Container>
-      {products.map((product, index) => (
-        <S.Container
-          key={ index }
-          data-testid={ `customer_products__element-card-price-${product.id}` }
-          id={ product.id }
-        >
-          <S.Title>{product.name}</S.Title>
-          <S.Title>{product.price}</S.Title>
-          <S.Image>
+      {products.map((product) => (
+        <S.Container key={ product.id }>
+          <S.Title
+            data-testid={ `customer_products__element-card-title-${product.id}` }
+          >
+            {product.name}
+          </S.Title>
+          <S.Title
+            data-testid={ `customer_products__element-card-price-${product.id}` }
+          >
+            {product.price}
+          </S.Title>
+          <S.Image
+            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+          >
             <img src={ product.urlImage } width={ 100 } alt={ product.name } />
           </S.Image>
           <button
             type="button"
             id={ `button-increase-${product.id}` }
             onClick={ () => modifyQuantity('increase', product.price) }
+            data-testid={ `customer_products__button-card-add-item-${product.id}` }
           >
             +
           </button>
@@ -64,6 +71,7 @@ export default function ProductsCard() {
             id={ `button-decrease-${product.id}` }
             onClick={ () => modifyQuantity('decrease', product.price) }
             disabled={ isBtnDisabled }
+            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
           >
             -
           </button>
@@ -73,6 +81,7 @@ export default function ProductsCard() {
               id={ `input-quantity-${product.id}` }
               name="quantity"
               value={ data.quantity }
+              data-testid={ `customer_products__input-card-quantity-${product.id}` }
             />
           </label>
         </S.Container>
