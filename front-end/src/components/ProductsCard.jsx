@@ -1,32 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MyContext from '../context/MyContext';
 import { getProducts } from '../services/api';
 import * as S from './styled';
 
 export default function ProductsCard() {
-  const { products, setTotal } = useContext(MyContext);
+  const { products, setTotal, setProducts, total } = useContext(MyContext);
   const [data, setData] = useState({
     quantity: 0,
   });
   const [isBtnDisabled, setBtnDisabled] = useState(true);
 
-  function handleChange({ target: { name, value } }) {
-    setData((state) => ({ ...state, [name]: value }));
-  }
-
   function modifyQuantity(type, price) {
     if (type === 'increase') {
       setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
       setBtnDisabled(false);
-      setTotal((state) => (state + price));
+      setTotal((state) => state + Number(price));
     }
     if (type === 'decrease') {
-      if (quantity === 0) {
+      if (data.quantity === 0) {
         setBtnDisabled(true);
         return;
       }
       setData((state) => ({ ...state, quantity: (state.quantity - 1) }));
-      setTotal((state) => (state - price));
+      setTotal((state) => state - Number(price));
+      if (total < 0) {
+        setTotal(0);
+      }
     }
   }
 
@@ -46,6 +45,7 @@ export default function ProductsCard() {
         <S.Container
           key={ index }
           data-testid={ `customer_products__element-card-price-${product.id}` }
+          id={ product.id }
         >
           <S.Title>{product.name}</S.Title>
           <S.Title>{product.price}</S.Title>
@@ -71,7 +71,6 @@ export default function ProductsCard() {
               id="input-quantity"
               name="quantity"
               value={ data.quantity }
-              onChange={ handleChange }
             />
           </label>
         </S.Container>

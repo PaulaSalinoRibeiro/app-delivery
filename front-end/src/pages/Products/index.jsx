@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styled';
 import ProductsCard from '../../components/ProductsCard';
@@ -14,12 +14,11 @@ export default function Products() {
       </S.Container>
       <button
         type="button"
-        onClick={ navigate('/cart') }
+        onClick={ () => navigate('/cart') }
         data-testid="customer_products__checkout-bottom-value"
       >
-        `Ver Carrinho: R$:
+        Ver Carrinho: R$:
         {total}
-        `
       </button>
     </S.Container>
   );

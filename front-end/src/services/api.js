@@ -27,8 +27,7 @@ export const register = async ({ name, email, password }) => {
 
 export const getProducts = async () => {
   try {
-    const { token } = localStorage.getItem(keyToken);
-    console.log('token', token);
+    const { token } = JSON.parse(localStorage.getItem(keyToken));
     const { data } = await instance.get(
       '/product',
       { headers: { authorization: token } },
