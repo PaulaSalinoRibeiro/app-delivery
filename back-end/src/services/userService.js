@@ -24,8 +24,6 @@ const createUser = async (user) => {
 
   const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
   
-  await User.create({ ...user, password: passwordHash, role: 'customer' });
-
   const token = createToken({ email: user.email, role: 'customer' });
 
   return {
