@@ -31,7 +31,7 @@ export const getProducts = async () => {
     console.log('token', token);
     const { data } = await instance.get(
       '/product',
-      { headers: { Authorization: `token ${token}` } },
+      { headers: { authorization: token } },
     );
     return data;
   } catch (err) {
