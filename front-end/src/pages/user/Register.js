@@ -12,6 +12,7 @@ function Register() {
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const keyLocalStorage = '@app-delivery:token';
+  const navigate = useNavigate();
 
   const navigate = useNavigate();
 
@@ -26,7 +27,6 @@ function Register() {
     }
     if (!emailRegex.test(email) || password.length < passwordMinLength
     || name.length < nameMinLength) {
-      setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
@@ -40,11 +40,18 @@ function Register() {
     console.log(!result);
     if (!result) {
       setFailedServerConnection(true);
+      setFailedTryLogin(true);
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
+
     navigate('/customer/products');
     // return result;
+
+    // if (result.role === 'customer') navigate('/customer/products');
+
+    // return result;
+
   }
 
   return (
@@ -99,7 +106,7 @@ function Register() {
       {
         (failedTryLogin)
           ? (
-            <p data-testid="common_login__element-invalid_register">
+            <p data-testid="common_register__element-invalid_register">
               {
                 `O endereço de e-mail, senha ou nome não estão corretos.
                   Por favor, tente novamente.`
