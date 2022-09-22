@@ -54,12 +54,14 @@ export default function ProductsCard() {
           </S.Image>
           <button
             type="button"
+            id={ `button-increase-${product.id}` }
             onClick={ () => modifyQuantity('increase', product.price) }
           >
             +
           </button>
           <button
             type="button"
+            id={ `button-decrease-${product.id}` }
             onClick={ () => modifyQuantity('decrease', product.price) }
             disabled={ isBtnDisabled }
           >
@@ -68,7 +70,7 @@ export default function ProductsCard() {
           <label htmlFor="input-quantity">
             <input
               type="number"
-              id="input-quantity"
+              id={ `input-quantity-${product.id}` }
               name="quantity"
               value={ data.quantity }
             />
