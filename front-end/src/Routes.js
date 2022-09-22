@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes as Switch, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import Register from './pages/user/Register';
-import Products from './pages/products/products';
+import Register from './pages/Register';
+import Products from './pages/Products';
 
 function Routes() {
   return (

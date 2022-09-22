@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/Logo.png';
-import login from '../services/login';
+import logo from '../../images/Logo.png';
+import { login } from '../../services/api';
+
+import * as S from './styled';
 
 function Login() {
   const [data, setData] = useState({
@@ -44,10 +46,12 @@ function Login() {
   }
 
   return (
-    <section>
-      <img src={ logo } alt="Logo do App de Delivery" />
-      <h1>App de Delivery</h1>
-      <form>
+    <S.Container>
+      <S.Image>
+        <img src={ logo } width={ 100 } alt="Logo do App de Delivery" />
+      </S.Image>
+      <S.Title>App de Delivery</S.Title>
+      <S.Forms>
         <label htmlFor="input-email">
           Login
           <input
@@ -87,7 +91,7 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-      </form>
+      </S.Forms>
 
       {
         (failedTryLogin)
@@ -110,7 +114,7 @@ function Login() {
           )
           : null
       }
-    </section>
+    </S.Container>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import register from '../../services/register';
+import { register } from '../../services/api';
 
 function Register() {
   const [data, setData] = useState({
@@ -12,7 +12,6 @@ function Register() {
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const keyLocalStorage = '@app-delivery:token';
-  const navigate = useNavigate();
 
   const navigate = useNavigate();
 
@@ -27,6 +26,7 @@ function Register() {
     }
     if (!emailRegex.test(email) || password.length < passwordMinLength
     || name.length < nameMinLength) {
+      setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
@@ -40,18 +40,11 @@ function Register() {
     console.log(!result);
     if (!result) {
       setFailedServerConnection(true);
-      setFailedTryLogin(true);
       return;
     }
     localStorage.setItem(keyLocalStorage, JSON.stringify(result));
-<<<<<<< HEAD
     navigate('/customer/products');
     // return result;
-=======
-    if (result.role === 'customer') navigate('/customer/products');
-
-    return result;
->>>>>>> 60964e5aa67b46127869718b05169d49fec8add6
   }
 
   return (
@@ -106,7 +99,7 @@ function Register() {
       {
         (failedTryLogin)
           ? (
-            <p data-testid="common_register__element-invalid_register">
+            <p data-testid="common_login__element-invalid_register">
               {
                 `O endereço de e-mail, senha ou nome não estão corretos.
                   Por favor, tente novamente.`

@@ -18,11 +18,18 @@ const createUser = async (user) => {
   const { password, email } = user;
   const passwordHash = encryptPassword(password);
 
+<<<<<<< HEAD
   const userExist = await User.findOne({ where: { email }});
   
   if(userExist) throw new HandleErro('Conflict', 'User already exist!');
 
   const {dataValues} = await User.create({ ...user, password: passwordHash, role: 'customer' });
+=======
+  if (await User.findOne({ where: { email: user.email } })) {
+    throw new HandleErro('Conflict', 'User already exists');
+  }
+  const newUser = await User.create({ ...user, password: passwordHash, role: 'customer' });
+>>>>>>> 60964e5aa67b46127869718b05169d49fec8add6
 
   const token = createToken({ email: user.email, role: 'customer' });
 
