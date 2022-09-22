@@ -1,18 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.section` 
+export const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top:10%;
-  margin: auto;
+  margin: 0 auto;
+  margin-top: 12%;
   width: 50%;
-`;
-
-export const Image = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const Title = styled.h1`
@@ -42,7 +36,7 @@ export const Input = styled.input`
   padding: 16px;
 `;
 
-export const ButtonLogin = styled.button`
+export const Button = styled.button`
   background: ${({ theme }) => theme.color.primario};
   color: ${({ theme }) => theme.color.textLight};
   font-size: 18px;
@@ -54,18 +48,12 @@ export const ButtonLogin = styled.button`
   width: 90%;
 `;
 
-export const ButtonRegister = styled.button`
-  background: ${({ theme }) => theme.color.textLight};
-  color: ${({ theme }) => theme.color.primario};
-  display: flex;
-  justify-content: center;
-  border-radius: 8px;
-  margin: 12px auto;
-  padding: 18px;
-  width: 90%;
+export const Validation = styled.p`
+  color: red;
+  width: 60%;
 `;
 
-export const FailLogin = styled.p`
+export const FailConnect = styled.p`
   color: red;
-  width: 68%;
+  width: 64%;
 `;

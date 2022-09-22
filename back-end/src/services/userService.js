@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const HandleErro = require('../utils/handleError');
+const HandleError = require('../utils/handleError');
 const { User } = require('../database/models');
 const { encryptPassword } = require('../utils/md5');
 const { createToken } = require('../utils/jwt');
@@ -13,29 +13,26 @@ const userSchema = Joi.object({
 const createUser = async (user) => {
   const { error } = userSchema.validate(user);
 
-  if (error) throw new HandleErro('BadRequest', 'Some required fields are missing');
+  if (error) throw new HandleError('BadRequest', 'Some required fields are missing');
   
   const { password } = user;
   const passwordHash = encryptPassword(password);
 
-  const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
-
+  
   if (await User.findOne({ where: { email: user.email } })) {
-    throw new HandleErro('Conflict', 'User already exists');
+    throw new HandleError('Conflict', 'User already exists');
   }
   
-  await User.create({ ...user, password: passwordHash, role: 'customer' });
-
+  const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
+  
   const token = createToken({ email: user.email, role: 'customer' });
 
   return {
     token,
-    user: {
-      name: dataValues.name,
-      email: dataValues.email,
-      role: dataValues.role,
-    },
-  };
+    name: dataValues.name,
+    email: dataValues.email,
+    role: dataValues.role,
+ };
 };
 
 const deleteUser = async (id) => User.destroy({ where: { id } });
