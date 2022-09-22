@@ -10,7 +10,7 @@ function Login() {
     email: '',
     password: '',
   });
-  const [failedTryLogin, setFailedTryLogin] = useState(false);
+
   const [failedServerConnection, setFailedServerConnection] = useState(false);
   const [isBtnDisabled, setBtnDisabled] = useState(true);
   const keyLocalStorage = '@app-delivery:token';
@@ -25,11 +25,12 @@ function Login() {
     const { email, password } = data;
     const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;
+
     if (emailRegex.test(email) && password.length >= passwordMinLength) {
       setBtnDisabled(false);
     }
+
     if (!emailRegex.test(email) || password.length < passwordMinLength) {
-      setFailedTryLogin(true);
       setBtnDisabled(true);
     }
   }, [data]);
@@ -52,67 +53,55 @@ function Login() {
       </S.Image>
       <S.Title>App de Delivery</S.Title>
       <S.Forms>
-        <label htmlFor="input-email">
+        <S.Label htmlFor="input-email">
           Login
-          <input
+          <S.Input
             type="email"
             id="input-email"
             name="email"
             value={ data.email }
-            onChange={ handleChange }
+            onChange={ ({ target }) => handleChange({ target }) }
             placeholder="seu-email@site.com.br"
             data-testid="common_login__input-email"
           />
-        </label>
-        <label htmlFor="input-password">
+        </S.Label>
+        <S.Label htmlFor="input-password">
           Senha
-          <input
+          <S.Input
             type="password"
             id="input-password"
             name="password"
             value={ data.password }
-            onChange={ handleChange }
+            onChange={ ({ target }) => handleChange({ target }) }
             placeholder="*********"
             data-testid="common_login__input-password"
           />
-        </label>
-        <button
+        </S.Label>
+        <S.ButtonLogin
           type="button"
           disabled={ isBtnDisabled }
-          onClick={ sendData }
+          onClick={ () => sendData() }
           data-testid="common_login__button-login"
         >
           LOGIN
-        </button>
-        <button
+        </S.ButtonLogin>
+        <S.ButtonRegister
           type="button"
           data-testid="common_login__button-register"
           onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
-        </button>
+        </S.ButtonRegister>
       </S.Forms>
 
       {
-        (failedTryLogin)
-          ? (
-            <p data-testid="common_login__element-invalid-email">
-              {
-                `O endereço de e-mail ou a senha não estão corretos.
-                  Por favor, tente novamente.`
-              }
-            </p>
-          )
-          : null
-      }
-      {
         (failedServerConnection)
-          ? (
-            <p data-testid="common_login__element-invalid-email">
-              Sistema fora do ar, porfavor tente mais tarde.
-            </p>
+          && (
+            <S.FailLogin data-testid="common_login__element-invalid-email">
+              O endereço de e-mail ou a senha não estão corretos.
+              Por favor, tente novamente.
+            </S.FailLogin>
           )
-          : null
       }
     </S.Container>
   );
