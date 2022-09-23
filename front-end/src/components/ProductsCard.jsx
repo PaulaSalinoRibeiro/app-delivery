@@ -20,7 +20,7 @@ export default function ProductsCard() {
     const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (type === 'increase') {
       setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
-      if (!isBtnDisabled) {
+      if (isBtnDisabled === true) {
         setBtnDisabled(false);
       }
       setCartItems((state) => ({ ...state, product }));
@@ -38,6 +38,7 @@ export default function ProductsCard() {
       }
       const itemToRemove = cart.find((prod) => prod === product);
       cart.splice(cart.indexOf(itemToRemove), 1);
+      setCartItems(cart);
       localStorage.setItem(keyCart, JSON.stringify(cart));
     }
   }
