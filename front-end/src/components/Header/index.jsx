@@ -28,11 +28,11 @@ export default function Header(dataTestId) {
       <S.Date
         data-testid={ OrderDate }
       >
-        <p> 07/04/2022</p>
+        <p>07/04/2022</p>
       </S.Date>
 
       <S.Status
-        data-testid={ `${OrderStatus}-index` }
+        data-testid={ `${OrderStatus}index` }
       >
         <p>ENTREGUE</p>
       </S.Status>
