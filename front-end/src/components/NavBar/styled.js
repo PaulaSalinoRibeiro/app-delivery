@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   background: ${({ theme }) => theme.color.primario};
-  height: 39px;
+  height: 52px;
 `;
 
 export const User = styled.div`
@@ -15,7 +15,7 @@ export const User = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 332px;
+  width: 732px;
 `;
 
 export const LogoutButton = styled.button`
