@@ -4,7 +4,8 @@ import { getProducts } from '../services/api';
 import * as S from './styled';
 
 export default function ProductsCard() {
-  const { products, setTotal, setProducts } = useContext(MyContext);
+  const {
+    products, setTotal, setProducts, cartItems, setCartItems } = useContext(MyContext);
   const [data, setData] = useState({
     quantity: 0,
   });
@@ -22,6 +23,7 @@ export default function ProductsCard() {
       if (!isBtnDisabled) {
         setBtnDisabled(false);
       }
+      setCartItems((state) => ({ ...state, product }));
       localStorage.setItem(keyCart, JSON.stringify([...cart, product]));
     }
     if (type === 'decrease') {
@@ -30,6 +32,7 @@ export default function ProductsCard() {
         setData((state) => ({ ...state, quantity: 0 }));
         setBtnDisabled(true);
         newCart = cart.filter((prod) => prod !== product);
+        setCartItems(newCart);
         localStorage.setItem(keyCart, JSON.stringify(newCart));
         return;
       }
@@ -55,7 +58,7 @@ export default function ProductsCard() {
       const totalPrice = cart.reduce((acc, curr) => acc + curr.price, 0);
       setTotal(totalPrice);
     }
-  }, [data]);
+  }, [cartItems]);
 
   return (
     <S.Container>
