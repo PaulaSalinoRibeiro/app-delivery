@@ -9,9 +9,6 @@ export default function Products() {
   const navigate = useNavigate();
   return (
     <S.Container>
-      <S.Container>
-        <ProductsCard />
-      </S.Container>
       <button
         type="button"
         onClick={ () => navigate('/customer/checkout') }
@@ -20,6 +17,9 @@ export default function Products() {
         Ver Carrinho: R$:
         {total}
       </button>
+      <S.Container>
+        <ProductsCard />
+      </S.Container>
     </S.Container>
   );
 }

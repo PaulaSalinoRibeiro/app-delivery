@@ -4,28 +4,38 @@ import { getProducts } from '../services/api';
 import * as S from './styled';
 
 export default function ProductsCard() {
-  const { products, setTotal, setProducts, total } = useContext(MyContext);
+  const { products, setTotal, setProducts } = useContext(MyContext);
   const [data, setData] = useState({
     quantity: 0,
   });
   const [isBtnDisabled, setBtnDisabled] = useState(true);
+  const keyCart = '@app-delivery:cart';
 
-  function modifyQuantity(type, price) {
+  function handleChange({ target: { name, value } }) {
+    setData((state) => ({ ...state, [name]: value }));
+  }
+
+  function modifyQuantity(type, price, product) {
+    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (type === 'increase') {
       setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
-      setBtnDisabled(false);
-      setTotal((state) => state + Number(price));
+      if (!isBtnDisabled) {
+        setBtnDisabled(false);
+      }
+      localStorage.setItem(keyCart, JSON.stringify([...cart, product]));
     }
     if (type === 'decrease') {
-      if (data.quantity === 0) {
+      setData((state) => ({ ...state, quantity: (state.quantity - 1) }));
+      if (data.quantity <= 0) {
+        setData((state) => ({ ...state, quantity: 0 }));
         setBtnDisabled(true);
+        newCart = cart.filter((prod) => prod !== product);
+        localStorage.setItem(keyCart, JSON.stringify(newCart));
         return;
       }
-      setData((state) => ({ ...state, quantity: (state.quantity - 1) }));
-      setTotal((state) => state - Number(price));
-      if (total < 0) {
-        setTotal(0);
-      }
+      const itemToRemove = cart.find((prod) => prod === product);
+      cart.splice(cart.indexOf(itemToRemove), 1);
+      localStorage.setItem(keyCart, JSON.stringify(cart));
     }
   }
 
@@ -37,7 +47,15 @@ export default function ProductsCard() {
       };
       fetchProducts();
     }
-  }, [products]);
+  }, [products, setProducts]);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
+    if (cart.length > 0) {
+      const totalPrice = cart.reduce((acc, curr) => acc + curr.price, 0);
+      setTotal(totalPrice);
+    }
+  }, [data]);
 
   return (
     <S.Container>
@@ -53,15 +71,18 @@ export default function ProductsCard() {
           >
             {product.price}
           </S.Title>
-          <S.Image
-            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-          >
-            <img src={ product.urlImage } width={ 100 } alt={ product.name } />
+          <S.Image>
+            <img
+              src={ product.urlImage }
+              width={ 100 }
+              alt={ product.name }
+              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+            />
           </S.Image>
           <button
             type="button"
             id={ `button-increase-${product.id}` }
-            onClick={ () => modifyQuantity('increase', product.price) }
+            onClick={ () => modifyQuantity('increase', product.price, product) }
             data-testid={ `customer_products__button-card-add-item-${product.id}` }
           >
             +
@@ -69,7 +90,7 @@ export default function ProductsCard() {
           <button
             type="button"
             id={ `button-decrease-${product.id}` }
-            onClick={ () => modifyQuantity('decrease', product.price) }
+            onClick={ () => modifyQuantity('decrease', product.price, product) }
             disabled={ isBtnDisabled }
             data-testid={ `customer_products__button-card-rm-item-${product.id}` }
           >
@@ -81,6 +102,7 @@ export default function ProductsCard() {
               id={ `input-quantity-${product.id}` }
               name="quantity"
               value={ data.quantity }
+              onChange={ ({ target }) => handleChange({ target }) }
               data-testid={ `customer_products__input-card-quantity-${product.id}` }
             />
           </label>
