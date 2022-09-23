@@ -56,10 +56,10 @@ export default function ProductsCard() {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (cart.length > 0) {
-      const totalPrice = cart.reduce((acc, curr) => acc + curr.price, 0);
+      const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
       setTotal(totalPrice);
     }
-  }, [cartItems]);
+  }, [cartItems, setCartItems]);
 
   return (
     <S.Container>
