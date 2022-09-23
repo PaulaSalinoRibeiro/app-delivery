@@ -4,6 +4,7 @@ import MyContext from '../context/MyContext';
 import * as S from './styled';
 
 export default function ProductsCard(props) {
+  const { product } = props;
   const {
     setTotal, cartItems, setCartItems } = useContext(MyContext);
   const [data, setData] = useState({
@@ -14,9 +15,24 @@ export default function ProductsCard(props) {
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
+    if (value <= 0) {
+      setData((state) => ({ ...state, [name]: 0 }));
+      setBtnDisabled(true);
+      return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
+    setData((state) => ({ ...state, quantity: Number(value) }));
+    setBtnDisabled(false);
+    const newProducts = [];
+    for (let index = 0; index < Number(value); index += 1) {
+      newProducts.push(product);
+    }
+    setCartItems((state) => ({ ...state, ...newProducts }));
+    localStorage.setItem(keyCart, JSON.stringify([...cart, ...newProducts]));
   }
 
-  function modifyQuantity(type, product) {
+  function modifyQuantity(type) {
     const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (type === 'increase') {
       setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
@@ -51,7 +67,6 @@ export default function ProductsCard(props) {
     }
   }, [cartItems, setCartItems]);
 
-  const { product } = props;
   return (
     <S.Container key={ product.id }>
       <S.Title
@@ -75,7 +90,7 @@ export default function ProductsCard(props) {
       <button
         type="button"
         id={ `button-increase-${product.id}` }
-        onClick={ () => modifyQuantity('increase', product) }
+        onClick={ () => modifyQuantity('increase') }
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
       >
         +
@@ -83,7 +98,7 @@ export default function ProductsCard(props) {
       <button
         type="button"
         id={ `button-decrease-${product.id}` }
-        onClick={ () => modifyQuantity('decrease', product) }
+        onClick={ () => modifyQuantity('decrease') }
         disabled={ isBtnDisabled }
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
       >
