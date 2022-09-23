@@ -15,13 +15,18 @@ export default function ProductsCard(props) {
 
   function handleChange({ target: { name, value } }) {
     setData((state) => ({ ...state, [name]: value }));
+
+    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (value <= 0) {
       setData((state) => ({ ...state, [name]: 0 }));
       setBtnDisabled(true);
+
+      newCart = cart.filter((prod) => prod !== product);
+      setCartItems(newCart);
+      localStorage.setItem(keyCart, JSON.stringify(newCart));
       return;
     }
 
-    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     setData((state) => ({ ...state, quantity: Number(value) }));
     setBtnDisabled(false);
     const newProducts = [];
