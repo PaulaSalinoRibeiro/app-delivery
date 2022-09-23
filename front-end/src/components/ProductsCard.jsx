@@ -16,7 +16,7 @@ export default function ProductsCard() {
     setData((state) => ({ ...state, [name]: value }));
   }
 
-  function modifyQuantity(type, price, product) {
+  function modifyQuantity(type, product) {
     const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (type === 'increase') {
       setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
@@ -85,7 +85,7 @@ export default function ProductsCard() {
           <button
             type="button"
             id={ `button-increase-${product.id}` }
-            onClick={ () => modifyQuantity('increase', product.price, product) }
+            onClick={ () => modifyQuantity('increase', product) }
             data-testid={ `customer_products__button-card-add-item-${product.id}` }
           >
             +
@@ -93,7 +93,7 @@ export default function ProductsCard() {
           <button
             type="button"
             id={ `button-decrease-${product.id}` }
-            onClick={ () => modifyQuantity('decrease', product.price, product) }
+            onClick={ () => modifyQuantity('decrease', product) }
             disabled={ isBtnDisabled }
             data-testid={ `customer_products__button-card-rm-item-${product.id}` }
           >
