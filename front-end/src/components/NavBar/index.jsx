@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import * as S from './styled';
+
 function NavBar() {
   const navigate = useNavigate();
 
@@ -13,65 +15,65 @@ function NavBar() {
   }
 
   const Products = (
-    <button
+    <S.ButtonProducts
       data-testid="customer_products__element-navbar-link-products"
       onClick={ () => { navigate('/customer/products'); } }
       type="button"
     >
       PRODUTOS
-    </button>
+    </S.ButtonProducts>
   );
 
   const MyOrders = (
-    <button
+    <S.ButtonMyOrders
       data-testid="customer_products__element-navbar-link-orders"
       onClick={ () => { navigate('/customer/orders'); } }
       type="button"
     >
       MEUS PEDIDOS
-    </button>
+    </S.ButtonMyOrders>
   );
 
   const ManageOrders = (
-    <button
+    <S.ButtonManageOrders
       data-testid="customer_products__element-navbar-link-orders"
       onClick={ () => { navigate('/seller/orders'); } }
       type="button"
     >
       PEDIDOS
-    </button>
+    </S.ButtonManageOrders>
   );
 
   const ManageUsers = (
-    <button
+    <S.ButtonManageUsers
       data-testid="customer_products__element-navbar-link-orders"
       type="button"
     >
       GERENCIAR USUÁRIOS
-    </button>
+    </S.ButtonManageUsers>
   );
 
   return (
-    <div className="nav-bar">
+    <S.Container className="nav-bar">
       { role === 'customer' && MyOrders }
       { role === 'customer' && Products }
       { role === 'seller' && ManageOrders }
       { role === 'admin' && ManageUsers }
-      <div className="user-name">
+      <S.User className="user-name">
         <span
           data-testid="customer_products__element-navbar-user-full-name"
         >
           { name }
         </span>
-      </div>
-      <button
+      </S.User>
+      <S.LogoutButton
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
-        onClick={ onClickLogoutHandler }
+        onClick={ () => onClickLogoutHandler() }
       >
         Sair
-      </button>
-    </div>
+      </S.LogoutButton>
+    </S.Container>
   );
 }
 
