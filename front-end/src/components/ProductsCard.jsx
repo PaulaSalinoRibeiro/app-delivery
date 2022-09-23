@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
-import { getProducts } from '../services/api';
 import * as S from './styled';
 
-export default function ProductsCard() {
+export default function ProductsCard(props) {
   const {
-    products, setTotal, setProducts, cartItems, setCartItems } = useContext(MyContext);
+    setTotal, cartItems, setCartItems } = useContext(MyContext);
   const [data, setData] = useState({
     quantity: 0,
   });
@@ -44,16 +44,6 @@ export default function ProductsCard() {
   }
 
   useEffect(() => {
-    if (products.length === 0) {
-      const fetchProducts = async () => {
-        const arrProducts = await getProducts();
-        setProducts(arrProducts);
-      };
-      fetchProducts();
-    }
-  }, [products, setProducts]);
-
-  useEffect(() => {
     const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
     if (cart.length > 0) {
       const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
@@ -61,57 +51,63 @@ export default function ProductsCard() {
     }
   }, [cartItems, setCartItems]);
 
+  const { product } = props;
   return (
-    <S.Container>
-      {products.map((product) => (
-        <S.Container key={ product.id }>
-          <S.Title
-            data-testid={ `customer_products__element-card-title-${product.id}` }
-          >
-            {product.name}
-          </S.Title>
-          <S.Title
-            data-testid={ `customer_products__element-card-price-${product.id}` }
-          >
-            {product.price}
-          </S.Title>
-          <S.Image>
-            <img
-              src={ product.urlImage }
-              width={ 100 }
-              alt={ product.name }
-              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            />
-          </S.Image>
-          <button
-            type="button"
-            id={ `button-increase-${product.id}` }
-            onClick={ () => modifyQuantity('increase', product) }
-            data-testid={ `customer_products__button-card-add-item-${product.id}` }
-          >
-            +
-          </button>
-          <button
-            type="button"
-            id={ `button-decrease-${product.id}` }
-            onClick={ () => modifyQuantity('decrease', product) }
-            disabled={ isBtnDisabled }
-            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-          >
-            -
-          </button>
-          <label htmlFor="input-quantity">
-            <input
-              type="number"
-              id={ `input-quantity-${product.id}` }
-              name="quantity"
-              value={ data.quantity }
-              onChange={ ({ target }) => handleChange({ target }) }
-              data-testid={ `customer_products__input-card-quantity-${product.id}` }
-            />
-          </label>
-        </S.Container>
-      ))}
+    <S.Container key={ product.id }>
+      <S.Title
+        data-testid={ `customer_products__element-card-title-${product.id}` }
+      >
+        {product.name}
+      </S.Title>
+      <S.Title
+        data-testid={ `customer_products__element-card-price-${product.id}` }
+      >
+        {product.price}
+      </S.Title>
+      <S.Image>
+        <img
+          src={ product.urlImage }
+          width={ 100 }
+          alt={ product.name }
+          data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+        />
+      </S.Image>
+      <button
+        type="button"
+        id={ `button-increase-${product.id}` }
+        onClick={ () => modifyQuantity('increase', product) }
+        data-testid={ `customer_products__button-card-add-item-${product.id}` }
+      >
+        +
+      </button>
+      <button
+        type="button"
+        id={ `button-decrease-${product.id}` }
+        onClick={ () => modifyQuantity('decrease', product) }
+        disabled={ isBtnDisabled }
+        data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+      >
+        -
+      </button>
+      <label htmlFor="input-quantity">
+        <input
+          type="number"
+          id={ `input-quantity-${product.id}` }
+          name="quantity"
+          value={ data.quantity }
+          onChange={ ({ target }) => handleChange({ target }) }
+          data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        />
+      </label>
     </S.Container>
   );
 }
+
+ProductsCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    urlImage: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+  }).isRequired,
+};
