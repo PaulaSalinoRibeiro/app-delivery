@@ -3,6 +3,7 @@ import { Route, Routes as Switch, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import OrderPage from './pages/OrderPage';
 
 function Routes() {
   return (
@@ -13,6 +14,7 @@ function Routes() {
           <Route exact path="/login" element={ <Login /> } />
           <Route exact path="/register" element={ <Register /> } />
           <Route exact path="/customer/products" element={ <Products /> } />
+          <Route exact path="/customer/orders/:id" element={ <OrderPage /> } />
         </Switch>
       </main>
     </div>

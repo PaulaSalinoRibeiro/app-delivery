@@ -18,7 +18,6 @@ const createUser = async (user) => {
   const { password } = user;
   const passwordHash = encryptPassword(password);
 
-  
   if (await User.findOne({ where: { email: user.email } })) {
     throw new HandleError('Conflict', 'User already exists');
   }
