@@ -48,7 +48,7 @@ export default function ProductsCard(props) {
       <S.Image>
         <img
           src={ product.urlImage }
-          width={ 100 }
+          width={ 200 }
           alt={ product.name }
           data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         />

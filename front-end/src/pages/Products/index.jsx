@@ -14,7 +14,6 @@ export default function Products() {
     if (products?.length === 0) {
       const fetchProducts = async () => {
         const arrProducts = await getProducts();
-        console.log(arrProducts);
         setProducts(arrProducts);
       };
       fetchProducts();
@@ -30,8 +29,11 @@ export default function Products() {
         onClick={ () => navigate('/customer/checkout') }
         data-testid="customer_products__button-cart"
       >
-        Ver Carrinho: R$:
-        { total.toFixed(2).toString().replace('.', ',') }
+        <span data-testid="customer_products__checkout-bottom-value">
+          Ver Carrinho: R$:
+          { total.toFixed(2).toString().replace('.', ',') }
+
+        </span>
       </button>
       <S.Container>
         {products?.map((product, index) => (
