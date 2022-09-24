@@ -4,15 +4,17 @@ import * as S from './styled';
 import ProductsCard from '../../components/ProductsCard';
 import MyContext from '../../context/MyContext';
 import { getProducts } from '../../services/api';
+import NavBar from '../../components/NavBar';
 
 export default function Products() {
   const { total, products, setProducts } = useContext(MyContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (products.length === 0) {
+    if (products?.length === 0) {
       const fetchProducts = async () => {
         const arrProducts = await getProducts();
+        console.log(arrProducts);
         setProducts(arrProducts);
       };
       fetchProducts();
@@ -20,20 +22,22 @@ export default function Products() {
   }, [products, setProducts]);
 
   return (
-    <S.Container>
+    <div>
+      <NavBar />
       <button
+        disabled={ total === 0 }
         type="button"
         onClick={ () => navigate('/customer/checkout') }
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
       >
         Ver Carrinho: R$:
-        {total}
+        { total.toFixed(2).toString().replace('.', ',') }
       </button>
       <S.Container>
-        {products.map((product, index) => (
+        {products?.map((product, index) => (
           <ProductsCard key={ index } product={ product } />
         ))}
       </S.Container>
-    </S.Container>
+    </div>
   );
 }

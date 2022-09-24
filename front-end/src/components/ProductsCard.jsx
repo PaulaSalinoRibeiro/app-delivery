@@ -2,75 +2,36 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
 import * as S from './styled';
+import {
+  addCartItemIfNotExists,
+  changeCartItemQuantity,
+  getCart,
+  getCartItem,
+  removeCartItem } from '../services/cartService';
 
 export default function ProductsCard(props) {
   const { product } = props;
-  const {
-    setTotal, cartItems, setCartItems } = useContext(MyContext);
-  const [data, setData] = useState({
-    quantity: 0,
-  });
-  const [isBtnDisabled, setBtnDisabled] = useState(true);
-  const keyCart = '@app-delivery:cart';
-
-  function handleChange({ target: { name, value } }) {
-    setData((state) => ({ ...state, [name]: value }));
-
-    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
-    if (value <= 0) {
-      setData((state) => ({ ...state, [name]: 0 }));
-      setBtnDisabled(true);
-
-      newCart = cart.filter((prod) => prod !== product);
-      setCartItems(newCart);
-      localStorage.setItem(keyCart, JSON.stringify(newCart));
-      return;
-    }
-
-    setData((state) => ({ ...state, quantity: Number(value) }));
-    setBtnDisabled(false);
-    const newProducts = [];
-    for (let index = 0; index < Number(value); index += 1) {
-      newProducts.push(product);
-    }
-    setCartItems((state) => ({ ...state, ...newProducts }));
-    localStorage.setItem(keyCart, JSON.stringify([...cart, ...newProducts]));
-  }
-
-  function modifyQuantity(type) {
-    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
-    if (type === 'increase') {
-      setData((state) => ({ ...state, quantity: (state.quantity + 1) }));
-      if (isBtnDisabled === true) {
-        setBtnDisabled(false);
-      }
-      setCartItems((state) => ({ ...state, product }));
-      localStorage.setItem(keyCart, JSON.stringify([...cart, product]));
-    }
-    if (type === 'decrease') {
-      setData((state) => ({ ...state, quantity: (state.quantity - 1) }));
-      if (data.quantity <= 0) {
-        setData((state) => ({ ...state, quantity: 0 }));
-        setBtnDisabled(true);
-        newCart = cart.filter((prod) => prod !== product);
-        setCartItems(newCart);
-        localStorage.setItem(keyCart, JSON.stringify(newCart));
-        return;
-      }
-      const itemToRemove = cart.find((prod) => prod === product);
-      cart.splice(cart.indexOf(itemToRemove), 1);
-      setCartItems(cart);
-      localStorage.setItem(keyCart, JSON.stringify(cart));
-    }
-  }
+  const { setTotal, setCartItems } = useContext(MyContext);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem(keyCart)) || [];
-    if (cart.length > 0) {
-      const totalPrice = cart.reduce((acc, curr) => acc + Number(curr.price), 0);
-      setTotal(totalPrice);
+    setQuantity(getCartItem(product.id)?.quantity || 0);
+  }, [product.id]);
+
+  useEffect(() => {
+    if (quantity === 0) {
+      removeCartItem(product.id);
+    } else {
+      addCartItemIfNotExists({ ...product, quantity });
     }
-  }, [cartItems, setCartItems]);
+    changeCartItemQuantity(product.id, quantity);
+    setCartItems(getCart());
+    const totalPrice = getCart().reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+    setTotal(totalPrice);
+  }, [product, product.id, quantity, setCartItems, setTotal]);
 
   return (
     <S.Container key={ product.id }>
@@ -82,7 +43,7 @@ export default function ProductsCard(props) {
       <S.Title
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
-        {product.price}
+        {parseFloat(product.price).toFixed(2).toString().replace('.', ',')}
       </S.Title>
       <S.Image>
         <img
@@ -95,7 +56,7 @@ export default function ProductsCard(props) {
       <button
         type="button"
         id={ `button-increase-${product.id}` }
-        onClick={ () => modifyQuantity('increase') }
+        onClick={ () => setQuantity(quantity + 1) }
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
       >
         +
@@ -103,8 +64,8 @@ export default function ProductsCard(props) {
       <button
         type="button"
         id={ `button-decrease-${product.id}` }
-        onClick={ () => modifyQuantity('decrease') }
-        disabled={ isBtnDisabled }
+        onClick={ () => setQuantity(quantity - 1) }
+        disabled={ quantity <= 0 }
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
       >
         -
@@ -114,8 +75,8 @@ export default function ProductsCard(props) {
           type="number"
           id={ `input-quantity-${product.id}` }
           name="quantity"
-          value={ data.quantity }
-          onChange={ ({ target }) => handleChange({ target }) }
+          value={ quantity }
+          onChange={ ({ target }) => setQuantity(Number(target.value)) }
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />
       </label>

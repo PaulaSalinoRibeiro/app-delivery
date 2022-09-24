@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: 'http://localhost:3001/',
 });
 
-const keyToken = '@app-delivery:token';
+const keyToken = 'user';
 
 export const login = async ({ email, password }) => {
   try {

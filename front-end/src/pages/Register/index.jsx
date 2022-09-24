@@ -13,7 +13,7 @@ function Register() {
   const [isBtnDisabled, setBtnDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [failedServerConnection, setFailedServerConnection] = useState(false);
-  const keyLocalStorage = '@app-delivery:token';
+  const userkey = 'user';
 
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function Register() {
       setFailedServerConnection(true);
       return;
     }
-    localStorage.setItem(keyLocalStorage, JSON.stringify(result));
+    localStorage.setItem(userkey, JSON.stringify(result));
     navigate('/customer/products');
   }
 
