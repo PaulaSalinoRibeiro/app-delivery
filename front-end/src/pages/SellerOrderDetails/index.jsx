@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import NavBar from '../../components/NavBar';
 import Header from '../../components/Header';
 import TableProducts from '../../components/TableProducts';
-import MyContext from '../../context/MyContext';
 
 import * as S from './styled';
 
@@ -22,7 +21,6 @@ const dataTestId = {
 };
 
 export default function SellerOrder() {
-  const { total } = useContext(MyContext);
   return (
     <S.Container>
       <NavBar />
@@ -33,7 +31,6 @@ export default function SellerOrder() {
         <S.Total>
           <p dataTestId="seller_order_details__element-order-total-price">
             Total: R$
-            { total.toFixed(2).toString().replace('.', ',') }
           </p>
         </S.Total>
       </S.Main>
