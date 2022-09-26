@@ -6,11 +6,11 @@ import * as S from './styled';
 function NavBar() {
   const navigate = useNavigate();
 
-  const { name, role } = JSON.parse(localStorage.getItem('@app-delivery:token'));
+  const { name, role } = JSON.parse(localStorage.getItem('user'));
 
   function onClickLogoutHandler() {
     // localStorage.removeItem('carrinho');
-    localStorage.removeItem('@app-delivery:token');
+    localStorage.removeItem('user');
     navigate('/login');
   }
 
