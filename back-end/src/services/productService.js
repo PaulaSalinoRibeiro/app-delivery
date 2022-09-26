@@ -19,7 +19,7 @@ const deleteProduct = async (id) => Product.destroy({ where: { id } });
 
 const getProductById = async (id) => Product.findOne({ where: { id } });
 
-const getProducts = async () => Product.findAll();
+const getProducts = async (query) => Product.findAll(query);
 
 const updateProduct = async (id, product) => {
   const { error } = productSchema.validate(product);

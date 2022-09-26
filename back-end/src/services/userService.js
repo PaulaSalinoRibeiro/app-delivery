@@ -24,7 +24,7 @@ const createUser = async (user) => {
   
   const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
   
-  const token = createToken({ email: user.email, role: 'customer' });
+  const token = createToken({ email: user.email, role: 'customer', userId: dataValues.id });
 
   return {
     token,
@@ -34,9 +34,12 @@ const createUser = async (user) => {
  };
 };
 
+const getUser = async (query) => User.findAll(query);
+
 const deleteUser = async (id) => User.destroy({ where: { id } });
 
 module.exports = {
   createUser,
   deleteUser,
+  getUser,
 };

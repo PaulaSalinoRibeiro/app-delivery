@@ -6,6 +6,7 @@ const routerLogin = require('../routers/routerLogin');
 const erroMiddleware = require('../middlewares/errorMiddleware');
 const routerUser = require('../routers/routerUser');
 const routerProduct = require('../routers/routerProduct');
+const routerSale = require('../routers/routerSale');
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use('/user', routerUser);
 app.use('/product', routerProduct);
 
 app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
+
+app.use('/sale', routerSale);
 
 app.use(erroMiddleware);
 

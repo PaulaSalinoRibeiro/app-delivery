@@ -12,7 +12,12 @@ const deleteUser = async (req, res) => {
   res.status(200).end();
 };
 
+const getSellers = async (req, res) => {
+  res.status(200).json(await userServices.getUser({ where: { role: 'seller' } }));
+};
+
 module.exports = {
   createUser,
   deleteUser,
+  getSellers,
 };
