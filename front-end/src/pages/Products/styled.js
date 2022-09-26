@@ -1,26 +1,24 @@
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  border: 1px solid red;  
+export const ButtonCart = styled.button`
+  background: ${({ theme }) => theme.color.primario};
+  padding: 18px;
+  position: fixed;
+  top: 86%;
+  left: 86%;
+`;
+
+export const Text = styled.h1`
+  color: ${({ theme }) => theme.color.textLight};
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+export const Container = styled.section`  
   display: flex;
-  flex-direction: column;
-  padding-top:10%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 4%;
   margin: auto;
-  width: 50%;
-`;
-
-export const Image = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Title = styled.h1`
-  text-align: center;
-`;
-
-export const Forms = styled.form`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red; 
+  width: 78%;
 `;

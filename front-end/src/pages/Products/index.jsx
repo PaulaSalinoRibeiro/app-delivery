@@ -23,18 +23,18 @@ export default function Products() {
   return (
     <div>
       <NavBar />
-      <button
+      <S.ButtonCart
         disabled={ total === 0 }
         type="button"
         onClick={ () => navigate('/customer/checkout') }
         data-testid="customer_products__button-cart"
       >
-        <span data-testid="customer_products__checkout-bottom-value">
+        <S.Text data-testid="customer_products__checkout-bottom-value">
           Ver Carrinho: R$:
           { total.toFixed(2).toString().replace('.', ',') }
 
-        </span>
-      </button>
+        </S.Text>
+      </S.ButtonCart>
       <S.Container>
         {products?.map((product, index) => (
           <ProductsCard key={ index } product={ product } />
