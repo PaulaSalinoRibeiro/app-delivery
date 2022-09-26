@@ -1,6 +1,7 @@
 const getImage = async (req, res) => {
-  console.log(req.params.imagename);
-  res.status(200).redirect('https://imgs.casasbahia.com.br/1516114321/1xg.jpg?imwidth=700');
+  res.status(200).sendFile(
+    '/home/devlopes/trybe-projects/sd-019-c-project-delivery-app/back-end/public/no_image.jpg',
+  );
 };
 
 module.exports = {
