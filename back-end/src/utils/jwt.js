@@ -15,8 +15,8 @@ fs.readFile(
 },
 );
 
-const createToken = ({ email, role }) => {
-  const token = jwt.sign({ data: { email, role } }, secret, {
+const createToken = ({ email, role, userId }) => {
+  const token = jwt.sign({ data: { email, role, userId } }, secret, {
     expiresIn: '30d',
       algorithm: 'HS256',
   });
