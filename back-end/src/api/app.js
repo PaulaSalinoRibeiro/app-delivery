@@ -6,7 +6,6 @@ const routerLogin = require('../routers/routerLogin');
 const erroMiddleware = require('../middlewares/errorMiddleware');
 const routerUser = require('../routers/routerUser');
 const routerProduct = require('../routers/routerProduct');
-const routerImage = require('../routers/routerImage');
 const routerSale = require('../routers/routerSale');
 
 const app = express();
