@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as S from './styled';
 
 export default function Header(props) {
-  const [status, setStatus] = useState('pendente');
+  const [status, setStatus] = useState('PENDENTE');
   const { dataTestId } = props;
   const {
     OrderNumber,
@@ -47,17 +47,17 @@ export default function Header(props) {
         <p>PENDENTE</p>
       </S.Status>
 
-      {OrderPreparing && status === 'pendente' ? (
+      {OrderPreparing && status === 'PENDENTE' ? (
         <S.CheckDelivery
-          onClick={ () => changeOrderStatus('preparando') }
+          onClick={ () => changeOrderStatus('PREPARANDO') }
           data-testid={ OrderPreparing }
         >
           <p>PREPARAR PEDIDO</p>
         </S.CheckDelivery>) : null}
 
-      {OrderDispatch && status === 'preparando' ? (
+      {OrderDispatch && status === 'PREPARANDO' ? (
         <S.CheckDelivery
-          onClick={ () => changeOrderStatus('em trânsito') }
+          onClick={ () => changeOrderStatus('EM TRÂNSITO') }
           data-testid={ OrderDispatch }
         >
           SAIU PARA ENTREGA
@@ -65,7 +65,7 @@ export default function Header(props) {
 
       {OrderDispatch ? (
         <S.CheckDelivery
-          onClick={ () => changeOrderStatus('entregue') }
+          onClick={ () => changeOrderStatus('ENTREGUE') }
           data-testid={ OrderCheckDelivery }
         >
           MARCAR COMO ENTREGUE

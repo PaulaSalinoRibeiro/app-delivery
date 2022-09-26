@@ -1,8 +1,8 @@
 import React from 'react';
 
-import NavBar from '../../components/NavBar';
-import Header from '../../components/Header';
-import TableProducts from '../../components/TableProducts';
+import NavBar from '../../../components/NavBar';
+import Header from '../../../components/Header';
+import TableProducts from '../../../components/TableProducts';
 
 import * as S from './styled';
 
