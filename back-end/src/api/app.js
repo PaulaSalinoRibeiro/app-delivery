@@ -1,11 +1,11 @@
 const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
+const path = require('path');
 const routerLogin = require('../routers/routerLogin');
 const erroMiddleware = require('../middlewares/errorMiddleware');
 const routerUser = require('../routers/routerUser');
 const routerProduct = require('../routers/routerProduct');
-const routerImage = require('../routers/routerImage');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use('/user', routerUser);
 
 app.use('/product', routerProduct);
 
-app.use('/images', routerImage);
+app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.use(erroMiddleware);
 
