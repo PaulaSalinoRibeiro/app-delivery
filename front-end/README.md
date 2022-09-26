@@ -16,3 +16,8 @@
 
 
 ![Tela de Cadastro](./assets/registerPage.png)
+
+
+## TELA DE PRODUTOS
+
+![Tela de Produtos](./assets/productsPage.png)
