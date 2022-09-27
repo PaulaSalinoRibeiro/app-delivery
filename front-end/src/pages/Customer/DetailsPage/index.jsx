@@ -56,11 +56,14 @@ export default function DetailsPage() {
         <TableProducts datatestids={ datatestid } products={ products } />
       </S.Main>
       <S.Total>
-        <p
-          data-testid="customer_order_details__element-order-total-price"
-        >
-          Total: R$
-          { total }
+        <p>
+          Total: R$&nbsp;
+          <sapn data-testid="customer_order_details__element-order-total-price">
+            {
+              parseFloat(total).toFixed(2).toString().replace('.', ',')
+            }
+
+          </sapn>
         </p>
       </S.Total>
     </S.Container>

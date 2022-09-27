@@ -72,7 +72,7 @@ export default function Header(props) {
 
       {OrderCheckDelivery && (
         <S.CheckDelivery
-          disabled={ status.toUpperCase() !== 'EM TRÂNSITO' }
+          disabled={ status?.toUpperCase() !== 'EM TRÂNSITO' }
           onClick={ () => changeOrderStatus('ENTREGUE') }
           data-testid={ OrderCheckDelivery }
         >
