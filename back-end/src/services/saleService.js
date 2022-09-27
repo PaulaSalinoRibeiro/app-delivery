@@ -43,7 +43,7 @@ const getSaleById = async (id) => Sale.findOne(
     { model: User, as: 'seller', attributes: { exclude: ['password'] } },
     { model: User, as: 'user', attributes: { exclude: ['password'] } },
   ],
-  }
+  },
 );
 
 const deleteSale = async (id) => Sale.destroy({ where: { id } });
