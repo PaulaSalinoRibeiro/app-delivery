@@ -20,6 +20,12 @@ const Product = (sequelize, DataTypes) => {
     underscored: true,
   });
 
+  // Product.associate = (models) => {
+  //   Product.belongsTo(models.Sale, {
+  //     foreingKey: 'sale_id', as: 'sale'
+  //   });
+  // }
+
  return Product;
 }
 

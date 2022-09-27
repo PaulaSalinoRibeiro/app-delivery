@@ -18,13 +18,26 @@ const Sale = (sequelize, DataTypes) => {
     undesrcored: true,
   })
 
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User,
+      { foreignKey: 'userId', as: 'user' },
+    );
+    Sale.belongsTo(models.User,
+      { foreignKey: 'sellerId', as: 'seller' },
+    );
+  };
+
+  // Sale.associate = (models) => {
+  //   Sale.belongsTo(models.User, {
+  //     foreingKey: 'user_id', as: 'user'
+  //   })
+  //   Sale.hasMany(models.Product, {
+  //     foreignKey: 'product_id', as: 'products'
+  //   })
+  // }
+
   return Sale;
 }
 
-Sale.associate = (models) => {
-  Sale.belongsTo(models.User, {
-    foreingKey: 'userId', as: 'user'
-  });
-}
 
 module.exports = Sale;

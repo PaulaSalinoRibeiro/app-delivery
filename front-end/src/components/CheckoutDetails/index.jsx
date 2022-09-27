@@ -26,6 +26,7 @@ export default function CheckoutDetails() {
       deliveryNumber: number,
       saleDate: new Date(),
     });
+    console.log(sale);
     navigate(`/customer/orders/${sale.id}`);
   };
 
