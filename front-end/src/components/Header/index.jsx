@@ -43,29 +43,32 @@ export default function Header(props) {
         <p>{ status }</p>
       </S.Status>
 
-      {OrderPreparing && status === 'PENDENTE' ? (
+      {OrderPreparing &&  (
         <S.CheckDelivery
+          disabled={ !(status.toUpperCase() === 'PENDENTE') }
           onClick={ () => changeOrderStatus('PREPARANDO') }
           data-testid={ OrderPreparing }
         >
           <p>PREPARAR PEDIDO</p>
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
 
-      {OrderDispatch && status === 'PREPARANDO' ? (
+      {OrderDispatch &&  (
         <S.CheckDelivery
+          disabled={ !(status.toUpperCase() === 'PREPARANDO') }
           onClick={ () => changeOrderStatus('EM TRÂNSITO') }
           data-testid={ OrderDispatch }
         >
           SAIU PARA ENTREGA
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
 
-      {OrderCheckDelivery ? (
+      {OrderCheckDelivery && (
         <S.CheckDelivery
+          disabled={ !(status.toUpperCase() === 'EM TRÂNSITO') }
           onClick={ () => changeOrderStatus('ENTREGUE') }
           data-testid={ OrderCheckDelivery }
         >
           MARCAR COMO ENTREGUE
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
     </S.Container>
   );
 }
