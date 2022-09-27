@@ -20,19 +20,28 @@ export default function Header(props) {
     setStatus(newStatus);
   }
 
-  useEffect( () => {
-    setStatus(header.status)
-  }, [header])
+  useEffect(() => {
+    setStatus(header.status);
+  }, [header]);
 
   return (
     <S.Container>
       <S.OrderNumber data-testid={ OrderNumber }>
-        <p>PEDIDO { header?.id }</p>
+        <p>
+          PEDIDO
+          {' '}
+          { header?.id }
+        </p>
       </S.OrderNumber>
 
       {OrderName ? (
         <S.OrderName data-testid={ OrderName }>
-          <p>P.Vend: { header?.seller?.name } </p>
+          <p>
+            P.Vend:
+            {' '}
+            { header?.seller?.name }
+            {' '}
+          </p>
         </S.OrderName>) : null}
 
       <S.Date data-testid={ OrderDate }>
@@ -43,18 +52,18 @@ export default function Header(props) {
         <p>{ status }</p>
       </S.Status>
 
-      {OrderPreparing &&  (
+      {OrderPreparing && (
         <S.CheckDelivery
-          disabled={ !(status.toUpperCase() === 'PENDENTE') }
+          disabled={ status.toUpperCase() !== 'PENDENTE' }
           onClick={ () => changeOrderStatus('PREPARANDO') }
           data-testid={ OrderPreparing }
         >
           <p>PREPARAR PEDIDO</p>
         </S.CheckDelivery>) }
 
-      {OrderDispatch &&  (
+      {OrderDispatch && (
         <S.CheckDelivery
-          disabled={ !(status.toUpperCase() === 'PREPARANDO') }
+          disabled={ status.toUpperCase() !== 'PREPARANDO' }
           onClick={ () => changeOrderStatus('EM TRÂNSITO') }
           data-testid={ OrderDispatch }
         >
@@ -63,7 +72,7 @@ export default function Header(props) {
 
       {OrderCheckDelivery && (
         <S.CheckDelivery
-          disabled={ !(status.toUpperCase() === 'EM TRÂNSITO') }
+          disabled={ status.toUpperCase() !== 'EM TRÂNSITO' }
           onClick={ () => changeOrderStatus('ENTREGUE') }
           data-testid={ OrderCheckDelivery }
         >
@@ -75,4 +84,5 @@ export default function Header(props) {
 
 Header.propTypes = {
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
+  header: PropTypes.objectOf(PropTypes.string).isRequired,
 };

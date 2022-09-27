@@ -23,29 +23,29 @@ const datatestid = {
 };
 
 export default function DetailsPage() {
-
-  let { id } = useParams();
+  const { id: params } = useParams();
 
   const [total, setTotal] = useState('');
-  const [header, setHeader ] = useState({});
-  const [products, setProducts] = useState([])
+  const [header, setHeader] = useState({});
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getOrdersById(id).then(({ products, seller, id, status, saleDate, totalPrice }) => {
-      setProducts(products.map(({ id, name, price, SalesProducts }) => ({
+    getOrdersById(params).then(({
+      products: arrProducts, seller, id: saleId, status, saleDate, totalPrice }) => {
+      setProducts(arrProducts.map(({ id, name, price, SalesProducts }) => ({
         id,
         name,
         price,
         quantity: SalesProducts.quantity,
       })));
-      setHeader({ 
-        seller, 
-        status, 
-        saleDate: new Date(saleDate).toLocaleDateString('pt-br'), 
-        id })
-      setTotal(totalPrice)
-    })
-  }, []);
+      setHeader({
+        seller,
+        status,
+        saleDate: new Date(saleDate).toLocaleDateString('pt-br'),
+        id: saleId });
+      setTotal(totalPrice);
+    });
+  }, [params]);
 
   return (
     <S.Container>
