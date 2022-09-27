@@ -67,3 +67,14 @@ export const getSellers = async () => {
     return null;
   }
 };
+
+export const getOrdersById = async (id) => {
+  try {
+    const { data } = await instance().get(
+      `/sale/${id}`,
+    );
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};

@@ -9,7 +9,7 @@ function NavBar() {
   const { name, role } = JSON.parse(localStorage.getItem('user'));
 
   function onClickLogoutHandler() {
-    // localStorage.removeItem('carrinho');
+    localStorage.removeItem('@app-delivery:cart');
     localStorage.removeItem('user');
     navigate('/login');
   }

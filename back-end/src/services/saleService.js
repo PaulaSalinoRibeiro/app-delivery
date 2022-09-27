@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const HandleError = require('../utils/handleError');
-const { Sale, sequelize, SalesProducts } = require('../database/models');
+const { Sale, sequelize, SalesProducts, Product, User } = require('../database/models');
 const { getProductById } = require('./productService');
 
 const saleSchema = Joi.object({
@@ -36,7 +36,15 @@ const createSale = async (sale, userId) => {
   } catch (err) { console.log(err); await t.rollback(); }
 };
 
-const getSaleById = async (id) => Sale.findOne({ where: { id } });
+const getSaleById = async (id) => Sale.findOne(
+  { where: { id },
+  include: [
+    { model: Product, as: 'products' },
+    { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+  ],
+  },
+);
 
 const deleteSale = async (id) => Sale.destroy({ where: { id } });
 
@@ -54,4 +62,5 @@ module.exports = {
   createSale,
   deleteSale,
   updateSale,
+  getSaleById,
 };

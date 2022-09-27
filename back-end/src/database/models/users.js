@@ -14,13 +14,14 @@ const User = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+  // User.associate = (models) => {
+  //   User.hasMany(models.Sale, {
+  //     foreingKey: 'id', as: 'user'
+  //   });
+  // }
+
   return User;
 }
 
-User.associate = (models) => {
-  User.hasMany(models.Sale, {
-    foreingKey: 'userId', as: 'sale'
-  });
-}
 
 module.exports = User

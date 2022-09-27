@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import * as S from './styled';
 
 export default function Header(props) {
-  const [status, setStatus] = useState('PENDENTE');
-  const { dataTestId } = props;
+  const { dataTestId, header } = props;
+  const [status, setStatus] = useState(header?.status);
   const {
     OrderNumber,
     OrderName,
@@ -16,64 +16,73 @@ export default function Header(props) {
     OrderDispatch,
   } = dataTestId;
 
-  // const {
-  //   id,
-  //  number,
-  //   name,
-  //   date,
-  //   status,
-  // } = order;
-
   function changeOrderStatus(newStatus) {
     setStatus(newStatus);
   }
 
+  useEffect(() => {
+    setStatus(header.status);
+  }, [header]);
+
   return (
     <S.Container>
-      <S.OrderNumber data-testid={ `${OrderNumber}-id` }>
-        <p>PEDIDO 0001</p>
+      <S.OrderNumber data-testid={ OrderNumber }>
+        <p>
+          PEDIDO
+          {' '}
+          { header?.id }
+        </p>
       </S.OrderNumber>
 
       {OrderName ? (
         <S.OrderName data-testid={ OrderName }>
-          <p>P.Vend: Fulana Pereira</p>
+          <p>
+            P.Vend:
+            {' '}
+            { header?.seller?.name }
+            {' '}
+          </p>
         </S.OrderName>) : null}
 
       <S.Date data-testid={ OrderDate }>
-        <p>26/09/2022</p>
+        <p>{ header?.saleDate }</p>
       </S.Date>
 
       <S.Status data-testid={ OrderStatus }>
-        <p>PENDENTE</p>
+        <p>{ status }</p>
       </S.Status>
 
-      {OrderPreparing && status === 'PENDENTE' ? (
+      {OrderPreparing && (
         <S.CheckDelivery
+          disabled={ status.toUpperCase() !== 'PENDENTE' }
           onClick={ () => changeOrderStatus('PREPARANDO') }
           data-testid={ OrderPreparing }
         >
           <p>PREPARAR PEDIDO</p>
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
 
-      {OrderDispatch && status === 'PREPARANDO' ? (
+      {OrderDispatch && (
         <S.CheckDelivery
+          disabled={ status.toUpperCase() !== 'PREPARANDO' }
           onClick={ () => changeOrderStatus('EM TRÂNSITO') }
           data-testid={ OrderDispatch }
         >
           SAIU PARA ENTREGA
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
 
-      {OrderDispatch ? (
+      {OrderCheckDelivery && (
         <S.CheckDelivery
+          disabled={ status.toUpperCase() !== 'EM TRÂNSITO' }
           onClick={ () => changeOrderStatus('ENTREGUE') }
           data-testid={ OrderCheckDelivery }
         >
           MARCAR COMO ENTREGUE
-        </S.CheckDelivery>) : null}
+        </S.CheckDelivery>) }
     </S.Container>
   );
 }
 
 Header.propTypes = {
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
+  header: PropTypes.objectOf(PropTypes.string).isRequired,
 };
