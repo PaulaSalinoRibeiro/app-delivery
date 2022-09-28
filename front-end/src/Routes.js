@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DetailsPage from './pages/Customer/DetailsPage';
+import OrderPage from './pages/Customer/OrderPage';
 import Checkout from './pages/Checkout';
 import SellerOrders from './pages/Seller/Orders';
 import SellerOrder from './pages/Seller/OrderDetails';
@@ -19,6 +20,7 @@ function Routes() {
           <Route exact path="/customer/products" element={ <Products /> } />
           <Route exact path="/customer/checkout" element={ <Checkout /> } />
           <Route exact path="/customer/orders/:id" element={ <DetailsPage /> } />
+          <Route exact path="/customer/orders" element={ <OrderPage /> } />
           <Route exact path="/seller/orders" element={ <SellerOrders /> } />
           <Route exact path="/seller/orders/:id" element={ <SellerOrder /> } />
         </Switch>
