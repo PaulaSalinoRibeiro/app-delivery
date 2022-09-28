@@ -50,6 +50,8 @@ function Login() {
     localStorage.setItem(userKey, JSON.stringify(result));
 
     if (result.role === 'customer') navigate('/customer/products');
+
+    if (result.role === 'administrator') navigate('/admin/manage');
   }
 
   return (

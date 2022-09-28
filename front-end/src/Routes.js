@@ -8,6 +8,7 @@ import OrderPage from './pages/Customer/OrderPage';
 import Checkout from './pages/Checkout';
 import SellerOrders from './pages/Seller/Orders';
 import SellerOrder from './pages/Seller/OrderDetails';
+import AdminPage from './pages/AdminPage';
 
 function Routes() {
   return (
@@ -23,6 +24,7 @@ function Routes() {
           <Route exact path="/customer/orders" element={ <OrderPage /> } />
           <Route exact path="/seller/orders" element={ <SellerOrders /> } />
           <Route exact path="/seller/orders/:id" element={ <SellerOrder /> } />
+          <Route exact path="/admin/manage" element={ <AdminPage /> } />
         </Switch>
       </main>
     </div>
