@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import * as S from './styled';
+import { updateSale } from '../../services/api';
 
 export default function Header(props) {
   const { dataTestId, header } = props;
@@ -16,12 +17,14 @@ export default function Header(props) {
     OrderDispatch,
   } = dataTestId;
 
-  function changeOrderStatus(newStatus) {
-    setStatus(newStatus);
+  async function changeOrderStatus(newStatus) {
+    const result = await updateSale(header.id, { status: newStatus });
+    if (result) setStatus(result.status);
   }
 
   useEffect(() => {
     setStatus(header.status);
+    console.log(header.status);
   }, [header]);
 
   return (
@@ -49,13 +52,13 @@ export default function Header(props) {
       </S.Date>
 
       <S.Status data-testid={ OrderStatus }>
-        <p>{ status }</p>
+        { status }
       </S.Status>
 
       {OrderPreparing && (
         <S.CheckDelivery
-          disabled={ status.toUpperCase() !== 'PENDENTE' }
-          onClick={ () => changeOrderStatus('PREPARANDO') }
+          disabled={ status !== 'Pendente' }
+          onClick={ () => changeOrderStatus('Preparando') }
           data-testid={ OrderPreparing }
         >
           <p>PREPARAR PEDIDO</p>
@@ -63,8 +66,8 @@ export default function Header(props) {
 
       {OrderDispatch && (
         <S.CheckDelivery
-          disabled={ status.toUpperCase() !== 'PREPARANDO' }
-          onClick={ () => changeOrderStatus('EM TRÂNSITO') }
+          disabled={ status !== 'Preparando' }
+          onClick={ () => changeOrderStatus('Em Trânsito') }
           data-testid={ OrderDispatch }
         >
           SAIU PARA ENTREGA
@@ -72,8 +75,8 @@ export default function Header(props) {
 
       {OrderCheckDelivery && (
         <S.CheckDelivery
-          disabled={ status?.toUpperCase() !== 'EM TRÂNSITO' }
-          onClick={ () => changeOrderStatus('ENTREGUE') }
+          disabled={ status !== 'Em Trânsito' }
+          onClick={ () => { changeOrderStatus('Entregue'); console.log('click'); } }
           data-testid={ OrderCheckDelivery }
         >
           MARCAR COMO ENTREGUE
@@ -84,5 +87,15 @@ export default function Header(props) {
 
 Header.propTypes = {
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
-  header: PropTypes.objectOf(PropTypes.string).isRequired,
+  header: PropTypes.shape(
+    {
+      id: PropTypes.number,
+      saleNumber: PropTypes.number,
+      saleDate: PropTypes.string,
+      status: PropTypes.string,
+      seller: PropTypes.shape({
+        name: PropTypes.string,
+      }),
+    },
+  ).isRequired,
 };

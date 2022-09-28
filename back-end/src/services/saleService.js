@@ -51,10 +51,6 @@ const getSaleById = async (id) => Sale.findOne(
 const deleteSale = async (id) => Sale.destroy({ where: { id } });
 
 const updateSale = async (id, sale) => {
-  const { error } = saleSchema.validate(sale);
-
-  if (error) throw new HandleError('BadRequest', 'Some required fields are missing');
-
   if (!getSaleById(id)) throw new HandleError('NotFound', 'Sale not found');
 
   return Sale.update(sale, { where: { id } });

@@ -11,24 +11,29 @@ export default function OrdersCard(props) {
     status,
     saleDate,
     totalPrice,
-    address,
+    deliveryAddress,
+    deliveryNumber,
   } = order;
   const {
     OrderNumber,
     OrderDate,
     OrderStatus,
+    OrderStatusLabel,
     OrderAddress,
     OrderPrice,
+    url,
   } = dataTestId;
 
   return (
-    <Link to={ `/${path}/orders/${id}` } key={ order.id }>
+    <Link to={ `/${path}/orders/${id}` } key={ order.id } data-testid={ `${url}-${id}` }>
       <p data-testid={ `${OrderNumber}-${id}` }>
         Pedido
         {' '}
         {id}
       </p>
-      <p data-testid={ `${OrderStatus}-${id}` }>{status}</p>
+      <button type="button" data-testid={ `${OrderStatus}-${id}` }>
+        <span data-testid={ OrderStatusLabel }>{status}</span>
+      </button>
       <p data-testid={ `${OrderDate}-${id}` }>
         {new Date(saleDate).toLocaleDateString('pt-br')}
       </p>
@@ -39,7 +44,9 @@ export default function OrdersCard(props) {
       </p>
       {
         OrderAddress && (
-          <p data-testid={ `${OrderAddress}-${id}` }>{address}</p>
+          <p data-testid={ `${OrderAddress}-${id}` }>
+            {`${deliveryAddress}, ${deliveryNumber}`}
+          </p>
         )
       }
     </Link>
@@ -52,7 +59,8 @@ OrdersCard.propTypes = {
     status: PropTypes.string,
     saleDate: PropTypes.string,
     totalPrice: PropTypes.string,
-    address: PropTypes.string,
+    deliveryAddress: PropTypes.string,
+    deliveryNumber: PropTypes.string,
   }).isRequired,
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
   path: PropTypes.string.isRequired,
