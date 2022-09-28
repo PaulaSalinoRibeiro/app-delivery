@@ -36,6 +36,8 @@ const createSale = async (sale, userId) => {
   } catch (err) { console.log(err); await t.rollback(); }
 };
 
+const getAllSalesById = async (query) => Sale.findAll(query);
+
 const getSaleById = async (id) => Sale.findOne(
   { where: { id },
   include: [
@@ -63,4 +65,5 @@ module.exports = {
   deleteSale,
   updateSale,
   getSaleById,
+  getAllSalesById,
 };

@@ -12,6 +12,12 @@ const updateSale = async (req, res) => {
   res.status(200).json(sale);
 };
 
+const getAllSalesById = async (req, res) => {
+  const { query } = req.body;
+  const allSales = await saleService.getAllSalesById({ where: query });
+  res.status(200).json(allSales);
+};
+
 const getSaleById = async (req, res) => {
   const { id } = req.params;
   const sale = await saleService.getSaleById(id);
@@ -29,4 +35,5 @@ module.exports = {
   deleteSale,
   updateSale,
   getSaleById,
+  getAllSalesById,
 };
