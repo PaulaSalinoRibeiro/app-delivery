@@ -10,8 +10,8 @@ import { getOrdersById } from '../../../services/api';
 import * as S from './styled';
 
 const datatestids = {
-  OrderNumber: 'seller-order-details-label-order-id',
-  OrderDate: 'seller-order-details-label-order-date',
+  OrderNumber: 'seller_order_details__element-order-details-label-order-id',
+  OrderDate: 'seller_order_details__element-order-details-label-order-date',
   OrderStatus: 'seller_order_details__element-order-details-label-delivery-status',
   OrderPreparing: 'seller_order_details__button-preparing-check',
   OrderDispatch: 'seller_order_details__button-dispatch-check',

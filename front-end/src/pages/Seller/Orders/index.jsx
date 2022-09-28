@@ -10,7 +10,7 @@ import * as S from './styled';
 const datatestid = {
   OrderNumber: 'seller-order-details-label-order',
   OrderDate: 'seller-order-details-label-order-date',
-  OrderStatus: 'seller-order-details-label-delivery-status',
+  OrderStatus: 'seller_orders__element-delivery-status',
   OrderAddress: 'seller_orders__element-card-address',
   url: 'seller_orders__element-order-id',
 };

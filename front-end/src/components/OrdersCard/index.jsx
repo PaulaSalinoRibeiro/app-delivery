@@ -18,6 +18,7 @@ export default function OrdersCard(props) {
     OrderNumber,
     OrderDate,
     OrderStatus,
+    OrderStatusLabel,
     OrderAddress,
     OrderPrice,
     url,
@@ -30,7 +31,9 @@ export default function OrdersCard(props) {
         {' '}
         {id}
       </p>
-      <p data-testid={ `${OrderStatus}-${id}` }>{status}</p>
+      <button type="button" data-testid={ `${OrderStatus}-${id}` }>
+        <span data-testid={ OrderStatusLabel }>{status}</span>
+      </button>
       <p data-testid={ `${OrderDate}-${id}` }>
         {new Date(saleDate).toLocaleDateString('pt-br')}
       </p>

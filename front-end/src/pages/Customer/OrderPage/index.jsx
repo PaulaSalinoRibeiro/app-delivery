@@ -6,7 +6,7 @@ import { getAllSalersByUser } from '../../../services/api';
 const datatestid = {
   OrderNumber: 'customer_orders__element-order-id',
   OrderDate: 'customer_orders__element-order-date',
-  OrderStatus: 'seller_orders__element-delivery-status',
+  OrderStatus: 'customer_orders__element-delivery-status',
   OrderPrice: 'customer_orders__element-card-price',
 };
 
