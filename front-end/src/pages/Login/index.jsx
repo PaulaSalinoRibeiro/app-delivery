@@ -22,6 +22,12 @@ function Login() {
   }
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) navigate('/customer/products');
+  }, []);
+
+  useEffect(() => {
     const { email, password } = data;
     const emailRegex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const passwordMinLength = 6;

@@ -78,3 +78,13 @@ export const getOrdersById = async (id) => {
     console.log(error.message);
   }
 };
+
+export const getAllSalersByUser = async (body) => {
+  try {
+    const { data } = await instance().get('/sale', body);
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+};

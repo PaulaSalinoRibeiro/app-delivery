@@ -28,6 +28,7 @@ const createUser = async (user) => {
 
   return {
     token,
+    id: dataValues.id,
     name: dataValues.name,
     email: dataValues.email,
     role: dataValues.role,
