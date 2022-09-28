@@ -24,7 +24,8 @@ function Login() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    if (user) navigate('/customer/products');
+    if (user?.role === 'customer') navigate('/customer/products');
+    if (user?.role === 'seller') navigate('/seller/orders');
   }, []);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function Login() {
     localStorage.setItem(userKey, JSON.stringify(result));
 
     if (result.role === 'customer') navigate('/customer/products');
+    if (result.role === 'seller') navigate('/seller/orders');
   }
 
   return (

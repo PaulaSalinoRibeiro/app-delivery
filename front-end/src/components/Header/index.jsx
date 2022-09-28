@@ -49,12 +49,12 @@ export default function Header(props) {
       </S.Date>
 
       <S.Status data-testid={ OrderStatus }>
-        <p>{ status }</p>
+        { status }
       </S.Status>
 
       {OrderPreparing && (
         <S.CheckDelivery
-          disabled={ status.toUpperCase() !== 'PENDENTE' }
+          disabled={ status?.toUpperCase() !== 'PENDENTE' }
           onClick={ () => changeOrderStatus('PREPARANDO') }
           data-testid={ OrderPreparing }
         >
@@ -63,7 +63,7 @@ export default function Header(props) {
 
       {OrderDispatch && (
         <S.CheckDelivery
-          disabled={ status.toUpperCase() !== 'PREPARANDO' }
+          disabled={ status?.toUpperCase() !== 'PREPARANDO' }
           onClick={ () => changeOrderStatus('EM TRÂNSITO') }
           data-testid={ OrderDispatch }
         >
@@ -84,5 +84,15 @@ export default function Header(props) {
 
 Header.propTypes = {
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
-  header: PropTypes.objectOf(PropTypes.string).isRequired,
+  header: PropTypes.shape(
+    {
+      id: PropTypes.number,
+      saleNumber: PropTypes.number,
+      saleDate: PropTypes.string,
+      status: PropTypes.string,
+      seller: PropTypes.shape({
+        name: PropTypes.string,
+      }),
+    },
+  ).isRequired,
 };

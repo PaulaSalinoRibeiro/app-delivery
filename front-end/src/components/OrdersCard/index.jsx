@@ -11,7 +11,8 @@ export default function OrdersCard(props) {
     status,
     saleDate,
     totalPrice,
-    address,
+    deliveryAddress,
+    deliveryNumber,
   } = order;
   const {
     OrderNumber,
@@ -19,10 +20,11 @@ export default function OrdersCard(props) {
     OrderStatus,
     OrderAddress,
     OrderPrice,
+    url,
   } = dataTestId;
 
   return (
-    <Link to={ `/${path}/orders/${id}` } key={ order.id }>
+    <Link to={ `/${path}/orders/${id}` } key={ order.id } data-testid={ `${url}-${id}` }>
       <p data-testid={ `${OrderNumber}-${id}` }>
         Pedido
         {' '}
@@ -39,7 +41,9 @@ export default function OrdersCard(props) {
       </p>
       {
         OrderAddress && (
-          <p data-testid={ `${OrderAddress}-${id}` }>{address}</p>
+          <p data-testid={ `${OrderAddress}-${id}` }>
+            {`${deliveryAddress}, ${deliveryNumber}`}
+          </p>
         )
       }
     </Link>
@@ -52,7 +56,8 @@ OrdersCard.propTypes = {
     status: PropTypes.string,
     saleDate: PropTypes.string,
     totalPrice: PropTypes.string,
-    address: PropTypes.string,
+    deliveryAddress: PropTypes.string,
+    deliveryNumber: PropTypes.string,
   }).isRequired,
   dataTestId: PropTypes.objectOf(PropTypes.string).isRequired,
   path: PropTypes.string.isRequired,

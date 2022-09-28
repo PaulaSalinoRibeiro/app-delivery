@@ -1,53 +1,43 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import NavBar from '../../../components/NavBar';
 import OrdersCard from '../../../components/OrdersCard';
 
+import { getAllSalersByUser } from '../../../services/api';
+
 import * as S from './styled';
 
-const dataTestId = {
+const datatestid = {
   OrderNumber: 'seller-order-details-label-order',
   OrderDate: 'seller-order-details-label-order-date',
   OrderStatus: 'seller-order-details-label-delivery-status',
   OrderAddress: 'seller_orders__element-card-address',
+  url: 'seller_orders__element-order-id',
 };
 
 export default function SellerOrder() {
-  const navigate = useNavigate();
+  const [ordersList, setOrdersList] = useState([]);
 
-  const orders = [{ id: 1,
-    status: 'PENDENTE',
-    date: '25/09/2022',
-    price: '10.00',
-    address: 'Rua X, Bairro Y, Z',
-  }, { id: 2,
-    status: 'PENDENTE',
-    date: '26/09/2022',
-    price: '20.00',
-    address: 'Rua Y, Bairro Z, X',
-  }, { id: 3,
-    status: 'PENDENTE',
-    date: '27/09/2022',
-    price: '30.00',
-    address: 'Rua Z, Bairro Y, X',
-  }];
+  useEffect(() => {
+    const { id } = JSON.parse(localStorage.getItem('user'));
+    getAllSalersByUser({ sellerId: id })
+      .then((result) => setOrdersList(result))
+      .catch((error) => console.log(error.message));
+  }, []);
+
   return (
     <S.Container>
       <NavBar />
       <S.Main>
-        {orders?.map((order, index) => (
-          <button
-            type="button"
-            key={ index }
-            onClick={ () => navigate(`/seller/orders/${order.id}`) }
-          >
-            <OrdersCard
+        {
+          ordersList
+            .map((order) => (<OrdersCard
+              key={ order.id }
               order={ order }
-              dataTestId={ dataTestId }
-            />
-          </button>
-        ))}
+              dataTestId={ datatestid }
+              path="seller"
+            />))
+        }
       </S.Main>
     </S.Container>
   );

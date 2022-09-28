@@ -87,6 +87,7 @@ export default function TableProducts(props) {
 }
 TableProducts.defaultProps = {
   removible: false,
+  removeClick: null,
 };
 TableProducts.propTypes = {
   datatestids: PropTypes.objectOf(PropTypes.string).isRequired,
@@ -97,5 +98,5 @@ TableProducts.propTypes = {
     name: PropTypes.string,
     price: PropTypes.string,
   })).isRequired,
-  removeClick: PropTypes.func.isRequired,
+  removeClick: PropTypes.func,
 };
