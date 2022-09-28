@@ -58,12 +58,12 @@ export default function DetailsPage() {
       <S.Total>
         <p>
           Total: R$&nbsp;
-          <sapn data-testid="customer_order_details__element-order-total-price">
+          <span data-testid="customer_order_details__element-order-total-price">
             {
               parseFloat(total).toFixed(2).toString().replace('.', ',')
             }
 
-          </sapn>
+          </span>
         </p>
       </S.Total>
     </S.Container>

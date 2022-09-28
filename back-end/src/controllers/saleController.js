@@ -8,8 +8,10 @@ const createSale = async (req, res) => {
 
 const updateSale = async (req, res) => {
   const { id } = req.params;
-  const sale = await saleService.updateSale(id, req.body);
-  res.status(200).json(sale);
+
+  await saleService.updateSale(id, req.body);
+
+  res.status(200).json(req.body);
 };
 
 const getAllSalesById = async (req, res) => {

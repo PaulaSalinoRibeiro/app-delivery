@@ -68,6 +68,16 @@ export const getSellers = async () => {
   }
 };
 
+export const updateSale = async (id, sale) => {
+  try {
+    const { data } = await instance().put(`/sale/${id}`, sale);
+    return data;
+  } catch (err) {
+    console.log(err.message);
+    return null;
+  }
+};
+
 export const getOrdersById = async (id) => {
   try {
     const { data } = await instance().get(

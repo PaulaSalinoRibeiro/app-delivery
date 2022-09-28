@@ -18,7 +18,7 @@ export default function OrderPage() {
     getAllSalersByUser({ userId: id })
       .then((result) => setOrdersList(result))
       .catch((error) => console.log(error.message));
-  });
+  }, []);
 
   return (
     <>
