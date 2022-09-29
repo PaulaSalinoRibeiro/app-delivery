@@ -69,13 +69,13 @@ export default function TableProducts(props) {
               removible
             && (
               <td>
-                <button
+                <S.Button
                   type="button"
                   data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                   onClick={ () => removeClick(item.id) }
                 >
                   Remover item
-                </button>
+                </S.Button>
               </td>
             )
             }

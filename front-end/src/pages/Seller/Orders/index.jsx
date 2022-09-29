@@ -26,9 +26,9 @@ export default function SellerOrder() {
   }, []);
 
   return (
-    <S.Container>
+    <>
       <NavBar />
-      <S.Main>
+      <S.Container>
         {
           ordersList
             .map((order) => (<OrdersCard
@@ -38,7 +38,7 @@ export default function SellerOrder() {
               path="seller"
             />))
         }
-      </S.Main>
-    </S.Container>
+      </S.Container>
+    </>
   );
 }

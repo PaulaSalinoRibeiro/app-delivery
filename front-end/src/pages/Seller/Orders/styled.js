@@ -1,23 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.main``;
-
-export const Main = styled.main`
-  margin: 4%;
+export const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 32px auto;
+  width: 80%;
 `;
 
 export const Title = styled.h1``;
-
-export const Total = styled.div`
-  background: ${({ theme }) => theme.color.primario};
-  padding: 4px;
-  margin-left: 84%;
-  width: 200px; 
-
-  p {
-    color: ${({ theme }) => theme.color.textLight};
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold:
-  }
-`;

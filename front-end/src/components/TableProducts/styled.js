@@ -64,5 +64,12 @@ export const TableRow = styled.tr`
     text-align: center;
     font-weight: bold;
   }
+`;
 
+export const Button = styled.button`
+  background: ${({ theme }) => theme.color.secundario};
+  color: ${({ theme }) => theme.color.textLight};
+  font-weight: bold;
+  padding: 12px;
+  border: none;
 `;

@@ -1,26 +1,53 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const Container = styled.section`
-  border: 1px solid red;  
+export const Container = styled.div`
+  background: ${({ theme }) => theme.color.textLight};
+  margin-bottom: 24px;
+  padding: 24px 48px;
+  width: 28%;
+`;
+
+export const OrderLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  padding-top:10%;
-  margin: auto;
-  width: 50%;
+  text-decoration: none;
+  color: ${({ theme }) => theme.color.textDark};
 `;
 
-export const Image = styled.div`
+export const Pedido = styled.p`
+  font-weight: bold;
+`;
+
+export const Button = styled.button`
+  background: ${({ theme }) => theme.color.quaternario};
+  border: none;
+  border-radius: 8px;
+  padding: 0 42px;
+  font-weight: bold;
+`;
+
+export const Info = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
 `;
 
-export const Title = styled.h1`
-  text-align: center;
+export const Details = styled.div``;
+
+export const Date = styled.p`
+  background: white;
+  font-weight: bold;
+  padding: 8px 16px;
 `;
 
-export const Forms = styled.form`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red; 
+export const Price = styled.p`
+  background: white;
+  font-weight: bold;
+  padding: 8px 16px;
+`;
+
+export const WrappingAddress = styled.div``;
+
+export const Address = styled.p`
+  margin-left: 26%;
 `;

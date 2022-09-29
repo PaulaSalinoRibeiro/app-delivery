@@ -52,7 +52,7 @@ export default function Header(props) {
       </S.Date>
 
       <S.Status data-testid={ OrderStatus }>
-        { status }
+        <p>{ status }</p>
       </S.Status>
 
       {OrderPreparing && (
@@ -61,7 +61,7 @@ export default function Header(props) {
           onClick={ () => changeOrderStatus('Preparando') }
           data-testid={ OrderPreparing }
         >
-          <p>PREPARAR PEDIDO</p>
+          PREPARAR PEDIDO
         </S.CheckDelivery>) }
 
       {OrderDispatch && (

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { createSale, getSellers } from '../../services/api';
 import { getCart } from '../../services/cartService';
 
+import * as S from './styled';
+
 export default function CheckoutDetails() {
   const navigate = useNavigate();
 
@@ -31,49 +33,52 @@ export default function CheckoutDetails() {
   };
 
   return (
-    <div>
-      <label htmlFor="input-saller">
-        Vendedor: &nbsp;
-        <select
-          onChange={ ({ target: { value } }) => setSellerId(value) }
-          name="input-saller"
-          data-testid="customer_checkout__select-seller"
-        >
-          <option>Selecionar</option>
-          {sellers?.map((sellerItem) => (
-            <option
-              key={ sellerItem.id }
-              value={ sellerItem.id }
-            >
-              {sellerItem.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      &nbsp;
-      <label htmlFor="input-addr">
-        Endereço: &nbsp;
-        <input
-          onChange={ ({ target: { value } }) => setAddress(value) }
-          data-testid="customer_checkout__input-address"
-        />
-      </label>
-      &nbsp;
-      <label htmlFor="input-number">
-        Número: &nbsp;
-        <input
-          type="number"
-          onChange={ ({ target: { value } }) => setNumber(value) }
-          data-testid="customer_checkout__input-address-number"
-        />
-      </label>
-      <button
+    <S.Container>
+      <S.Title>Detalhes e Endereço para entrega</S.Title>
+      <S.Form>
+        <S.Label htmlFor="input-saller">
+          Vendedor:
+          <select
+            onChange={ ({ target: { value } }) => setSellerId(value) }
+            name="input-saller"
+            data-testid="customer_checkout__select-seller"
+          >
+            <option>Selecionar</option>
+            {sellers?.map((sellerItem) => (
+              <option
+                key={ sellerItem.id }
+                value={ sellerItem.id }
+              >
+                {sellerItem.name}
+              </option>
+            ))}
+          </select>
+        </S.Label>
+
+        <S.Label htmlFor="input-addr">
+          Endereço:
+          <input
+            onChange={ ({ target: { value } }) => setAddress(value) }
+            data-testid="customer_checkout__input-address"
+          />
+        </S.Label>
+
+        <S.Label htmlFor="input-number">
+          Número:
+          <input
+            type="number"
+            onChange={ ({ target: { value } }) => setNumber(value) }
+            data-testid="customer_checkout__input-address-number"
+          />
+        </S.Label>
+      </S.Form>
+      <S.Button
         type="button"
         data-testid="customer_checkout__button-submit-order"
         onClick={ finish }
       >
         FINALIZAR
-      </button>
-    </div>
+      </S.Button>
+    </S.Container>
   );
 }

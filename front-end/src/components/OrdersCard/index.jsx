@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-// import * as S from './styled';
+import * as S from './styled';
 
 export default function OrdersCard(props) {
   const { order, dataTestId, path } = props;
@@ -25,31 +24,50 @@ export default function OrdersCard(props) {
   } = dataTestId;
 
   return (
-    <Link to={ `/${path}/orders/${id}` } key={ order.id } data-testid={ `${url}-${id}` }>
-      <p data-testid={ `${OrderNumber}-${id}` }>
-        Pedido
-        {' '}
-        {id}
-      </p>
-      <button type="button" data-testid={ `${OrderStatus}-${id}` }>
-        <span data-testid={ OrderStatusLabel }>{status}</span>
-      </button>
-      <p data-testid={ `${OrderDate}-${id}` }>
-        {new Date(saleDate).toLocaleDateString('pt-br')}
-      </p>
-      <p data-testid={ `${OrderPrice}-${id}` }>
-        R$
-        {' '}
-        {totalPrice.replace('.', ',')}
-      </p>
-      {
-        OrderAddress && (
-          <p data-testid={ `${OrderAddress}-${id}` }>
-            {`${deliveryAddress}, ${deliveryNumber}`}
-          </p>
-        )
-      }
-    </Link>
+    <S.Container>
+      <S.OrderLink
+        to={ `/${path}/orders/${id}` }
+        key={ order.id }
+        data-testid={ `${url}-${id}` }
+      >
+        <S.Info>
+          <S.Pedido data-testid={ `${OrderNumber}-${id}` }>
+            Pedido
+            {' '}
+            {id}
+          </S.Pedido>
+
+          <S.Button
+            type="button"
+            data-testid={ `${OrderStatus}-${id}` }
+          >
+            <span data-testid={ OrderStatusLabel }>
+              {status}
+            </span>
+          </S.Button>
+
+          <S.Details>
+            <S.Date data-testid={ `${OrderDate}-${id}` }>
+              {new Date(saleDate).toLocaleDateString('pt-br')}
+            </S.Date>
+            <S.Price data-testid={ `${OrderPrice}-${id}` }>
+              R$
+              {' '}
+              {totalPrice.replace('.', ',')}
+            </S.Price>
+          </S.Details>
+        </S.Info>
+        <S.WrappingAddress>
+          {
+            OrderAddress && (
+              <S.Address data-testid={ `${OrderAddress}-${id}` }>
+                {`${deliveryAddress}, ${deliveryNumber}`}
+              </S.Address>
+            )
+          }
+        </S.WrappingAddress>
+      </S.OrderLink>
+    </S.Container>
   );
 }
 

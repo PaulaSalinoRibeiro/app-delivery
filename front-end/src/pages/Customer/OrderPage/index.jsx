@@ -3,6 +3,8 @@ import NavBar from '../../../components/NavBar';
 import OrdersCard from '../../../components/OrdersCard';
 import { getAllSalersByUser } from '../../../services/api';
 
+import * as S from './styled';
+
 const datatestid = {
   OrderNumber: 'customer_orders__element-order-id',
   OrderDate: 'customer_orders__element-order-date',
@@ -23,15 +25,17 @@ export default function OrderPage() {
   return (
     <>
       <NavBar />
-      {
-        ordersList
-          .map((order) => (<OrdersCard
-            key={ order.id }
-            order={ order }
-            dataTestId={ datatestid }
-            path="customer"
-          />))
-      }
+      <S.Container>
+        {
+          ordersList
+            .map((order) => (<OrdersCard
+              key={ order.id }
+              order={ order }
+              dataTestId={ datatestid }
+              path="customer"
+            />))
+        }
+      </S.Container>
     </>
   );
 }
