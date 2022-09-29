@@ -7,6 +7,7 @@ const routerUser = Router();
 routerUser.post('/', userController.createUser);
 routerUser.get('/seller', userController.getSellers);
 routerUser.use(tokenValidation);
+routerUser.get('/', userController.getAllUsers);
 routerUser.delete('/:id', userController.deleteUser);
 
 module.exports = routerUser;

@@ -8,6 +8,7 @@ const userSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
+  role: Joi.string().required(),
 });
 
 const createUser = async (user) => {
@@ -22,7 +23,7 @@ const createUser = async (user) => {
     throw new HandleError('Conflict', 'User already exists');
   }
   
-  const { dataValues } = await User.create({ ...user, password: passwordHash, role: 'customer' });
+  const { dataValues } = await User.create({ ...user, password: passwordHash });
   
   const token = createToken({ email: user.email, role: 'customer', userId: dataValues.id });
 
@@ -37,10 +38,13 @@ const createUser = async (user) => {
 
 const getUser = async (query) => User.findAll(query);
 
+const getAllUsers = async () => User.findAll();
+
 const deleteUser = async (id) => User.destroy({ where: { id } });
 
 module.exports = {
   createUser,
   deleteUser,
   getUser,
+  getAllUsers,
 };

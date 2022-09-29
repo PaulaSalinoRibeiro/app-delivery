@@ -26,6 +26,7 @@ function Login() {
 
     if (user?.role === 'customer') navigate('/customer/products');
     if (user?.role === 'seller') navigate('/seller/orders');
+    if (user?.role === 'administrator') navigate('/admin/manage');
   }, []);
 
   useEffect(() => {
@@ -51,6 +52,9 @@ function Login() {
     localStorage.setItem(userKey, JSON.stringify(result));
 
     if (result.role === 'customer') navigate('/customer/products');
+
+    if (result.role === 'administrator') navigate('/admin/manage');
+
     if (result.role === 'seller') navigate('/seller/orders');
   }
 

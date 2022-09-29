@@ -21,9 +21,9 @@ export const login = async ({ email, password }) => {
   }
 };
 
-export const register = async ({ name, email, password }) => {
+export const register = async (body) => {
   try {
-    const { data } = await instance().post('/user', { name, email, password });
+    const { data } = await instance().post('/user', body);
     return data;
   } catch (err) {
     console.log(err.message);
@@ -96,5 +96,14 @@ export const getAllSalersByUser = async (body) => {
   } catch (error) {
     console.log(error.message);
     return null;
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const { data } = await instance().get('/user');
+    return data;
+  } catch (error) {
+    console.log(error.message);
   }
 };
