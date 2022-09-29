@@ -26,6 +26,7 @@ function Login() {
 
     if (user?.role === 'customer') navigate('/customer/products');
     if (user?.role === 'seller') navigate('/seller/orders');
+    if (user?.role === 'administrator') navigate('/admin/manage');
   }, []);
 
   useEffect(() => {
