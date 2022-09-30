@@ -2,15 +2,17 @@ import styled from 'styled-components';
 
 export const Container = styled.main``;
 
-export const Main = styled.main`
+export const Main = styled.div`
   margin: 4%;
+  
 `;
 
 export const Title = styled.h1``;
 
 export const Total = styled.div`
   background: ${({ theme }) => theme.color.primario};
-  padding: 4px;
+  padding: 2px 46px;
+  border-radius: 8px;
   margin-left: 84%;
   width: 200px; 
 

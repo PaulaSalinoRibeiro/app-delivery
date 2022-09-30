@@ -38,7 +38,7 @@ export default function CheckoutDetails() {
       <S.Form>
         <S.Label htmlFor="input-saller">
           Vendedor:
-          <select
+          <S.Select
             onChange={ ({ target: { value } }) => setSellerId(value) }
             name="input-saller"
             data-testid="customer_checkout__select-seller"
@@ -52,12 +52,12 @@ export default function CheckoutDetails() {
                 {sellerItem.name}
               </option>
             ))}
-          </select>
+          </S.Select>
         </S.Label>
 
         <S.Label htmlFor="input-addr">
           Endereço:
-          <input
+          <S.InputAddres
             onChange={ ({ target: { value } }) => setAddress(value) }
             data-testid="customer_checkout__input-address"
           />
@@ -65,7 +65,7 @@ export default function CheckoutDetails() {
 
         <S.Label htmlFor="input-number">
           Número:
-          <input
+          <S.InputNumber
             type="number"
             onChange={ ({ target: { value } }) => setNumber(value) }
             data-testid="customer_checkout__input-address-number"

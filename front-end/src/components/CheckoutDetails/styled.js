@@ -10,7 +10,10 @@ export const Title = styled.h1`
 export const Form = styled.form`
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  border: 1px solid ${({ theme }) => theme.color.background};
+  border-radius: 8px;
+  padding: 32px;
+  width: 97%;
 `;
 
 export const Label = styled.label`
@@ -20,11 +23,30 @@ export const Label = styled.label`
   width: 16%;
 `;
 
+export const Select = styled.select`
+  margin-top: 4px;
+  padding: 16px;
+  border-radius: 8px;
+`;
+
+export const InputAddres = styled.input`
+  margin-top: 4px;
+  padding: 16px;
+  border-radius: 8px;
+  width: 480px;
+`;
+
+export const InputNumber = styled.input`
+  margin-top: 4px;
+  padding: 16px;
+  border-radius: 8px;
+`;
+
 export const Button = styled.button`
   margin-top: 24px;
   margin-left: 40%;
   font-weight: bold;
-  padding: 14px 28px;
+  padding: 16px 64px;
   color: ${({ theme }) => theme.color.textLight};
   background: ${({ theme }) => theme.color.primario};
   border: none;

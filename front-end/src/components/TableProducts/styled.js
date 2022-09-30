@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Table = styled.table`
+  border: 1px solid ${({ theme }) => theme.color.background};
+  border-radius: 8px;
+  padding: 32px;
   width: 100%;
 `;
 
@@ -14,22 +17,22 @@ export const TableRow = styled.tr`
   }
 
   th:nth-child(2) {
-    width: 72%;
+    width: 68%;
     font-weight: 400;
   }
 
   th:nth-child(3) {
-    width: 26px;
+    width: 8%;
     font-weight: 400;
   }
 
   th:nth-child(4) {
-    width: 26px;
+    width: 8%;
     font-weight: 400;
   }
 
   th:nth-child(5) {
-    width: 26px;
+    width: 8%;
     font-weight: 400;
   }
 
@@ -41,7 +44,7 @@ export const TableRow = styled.tr`
   }
 
   td:nth-child(2) {
-    background: ${({ theme }) => theme.color.textLight};
+    background: ${({ theme }) => theme.color.background};
   }
 
   td:nth-child(3) {

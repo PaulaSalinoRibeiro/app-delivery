@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
-export const Container = styled.main``;
+export const Container = styled.main`
+`;
 
-export const Main = styled.main`
+export const Main = styled.div`
+  border: 1px solid ${({ theme }) => theme.color.background};
   margin: 4%;
 `;
 
-export const Title = styled.h1``;
+export const Title = styled.h1`
+  color: red;
+`;
 
 export const Total = styled.div`
   background: ${({ theme }) => theme.color.primario};

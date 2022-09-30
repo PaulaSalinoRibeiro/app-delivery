@@ -43,6 +43,7 @@ export const IncreaseButton = styled.button`
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   font-size: 18px;
+  border: none;
   padding: 8px 16px; 
   border-radius: 8px;
 `;
@@ -52,6 +53,7 @@ export const DecreaseButton = styled.button`
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   font-size: 18px;
+  border: none;
   padding: 8px 16px; 
   border-radius: 8px;
 `;
