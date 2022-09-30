@@ -22,7 +22,10 @@ export const Title = styled.h1`
 export const Forms = styled.form`
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.color.textLight}; 
+  background: ${({ theme }) => theme.color.background};
+  border: 3px solid ${({ theme }) => theme.color.primario};
+  border-radius: 8px;
+  padding: 12px 24px;
   width: 425px;
   height: 444px;
   left: 750px;
@@ -40,6 +43,12 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 90%;
   padding: 16px;
+  border: none;
+  border-radius: 8px;
+
+  &:focus: {
+    border: 3px solid ${({ theme }) => theme.color.primario};
+  }
 `;
 
 export const ButtonLogin = styled.button`

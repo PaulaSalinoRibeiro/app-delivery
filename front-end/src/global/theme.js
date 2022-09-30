@@ -9,6 +9,7 @@ const theme = {
     preparando: '#66CC00',
     textDark: '#001813',
     textLight: '#F2FFFC',
+    background: '#B1C2BE',
   },
 };
 
