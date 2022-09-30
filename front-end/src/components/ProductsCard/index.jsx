@@ -65,8 +65,8 @@ export default function ProductsCard(props) {
         </S.IncreaseButton>
 
         <S.Text htmlFor="input-quantity">
-          <input
-            type="number"
+          <S.Input
+            type="text"
             id={ `input-quantity-${product.id}` }
             name="quantity"
             value={ quantity }

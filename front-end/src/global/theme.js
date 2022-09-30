@@ -10,6 +10,7 @@ const theme = {
     textDark: '#001813',
     textLight: '#F2FFFC',
     background: '#B1C2BE',
+    backgroundSecundario: '#F2FFFC',
   },
 };
 
