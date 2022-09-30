@@ -31,14 +31,17 @@ export default function OrdersCard(props) {
         data-testid={ `${url}-${id}` }
       >
         <S.Info>
-          <S.Pedido data-testid={ `${OrderNumber}-${id}` }>
-            Pedido
-            {' '}
-            {id}
-          </S.Pedido>
+          <S.OrderNumber>
+            <S.Pedido data-testid={ `${OrderNumber}-${id}` }>
+              Pedido
+              {' '}
+              {id}
+            </S.Pedido>
+          </S.OrderNumber>
 
           <S.Button
             type="button"
+            status={ status }
             data-testid={ `${OrderStatus}-${id}` }
           >
             <span data-testid={ OrderStatusLabel }>

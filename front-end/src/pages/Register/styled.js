@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 0 auto;
   margin-top: 12%;
   width: 50%;
@@ -14,32 +14,32 @@ export const Title = styled.h1`
 `;
 
 export const Forms = styled.form`
-  display: flex;
-  flex-direction: column;
   background: ${({ theme }) => theme.color.background};
   border: 3px solid ${({ theme }) => theme.color.primario};
   border-radius: 8px;
-  padding: 12px 24px;
-  width: 425px;
+  display: flex;
+  flex-direction: column;
   height: 444px;
   left: 750px;
   top: 501px;
+  padding: 12px 24px;
+  width: 425px;
 `;
 
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
-  padding:18px;
   font-size: 18px;
   font-weight: bold;
+  padding: 18px;
 `;
 
 export const Input = styled.input`
-  width: 90%;
-  padding: 16px;
   border: none;
   border-radius: 8px;
+  padding: 16px;
   margin-top: 6px;
+  width: 90%;
 
   &:focus: {
     border: 3px solid ${({ theme }) => theme.color.primario};
@@ -48,11 +48,11 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.color.primario};
-  color: ${({ theme }) => theme.color.textLight};
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
   border-radius: 8px;
+  color: ${({ theme }) => theme.color.textLight};
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
   margin: 12px auto;
   padding: 18px;
   width: 90%;

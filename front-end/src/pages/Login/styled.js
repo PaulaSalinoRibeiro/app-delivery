@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.section` 
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top:10%;
   margin: auto;
+  padding-top:10%;
   width: 50%;
 `;
 
 export const Image = styled.div`
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 export const Title = styled.h1`
@@ -20,32 +20,32 @@ export const Title = styled.h1`
 `;
 
 export const Forms = styled.form`
-  display: flex;
-  flex-direction: column;
   background: ${({ theme }) => theme.color.background};
   border: 3px solid ${({ theme }) => theme.color.primario};
   border-radius: 8px;
-  padding: 12px 24px;
-  width: 425px;
+  display: flex;
+  flex-direction: column;
   height: 444px;
   left: 750px;
+  padding: 12px 24px;
   top: 501px;
+  width: 425px;
 `;
 
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
-  padding:18px;
   font-size: 18px;
   font-weight: bold;
+  padding:18px;
 `;
 
 export const Input = styled.input`
-  width: 90%;
-  padding: 16px;
   border: none;
   border-radius: 8px;
   margin-top: 6px;
+  padding: 16px;
+  width: 90%;
 
   &:focus: {
     border: 3px solid ${({ theme }) => theme.color.primario};
@@ -54,11 +54,11 @@ export const Input = styled.input`
 
 export const ButtonLogin = styled.button`
   background: ${({ theme }) => theme.color.primario};
-  color: ${({ theme }) => theme.color.textLight};
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
   border-radius: 8px;
+  color: ${({ theme }) => theme.color.textLight};
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
   margin: 12px auto;
   padding: 18px;
   width: 90%;
@@ -66,10 +66,10 @@ export const ButtonLogin = styled.button`
 
 export const ButtonRegister = styled.button`
   background: ${({ theme }) => theme.color.textLight};
+  border-radius: 8px;
   color: ${({ theme }) => theme.color.primario};
   display: flex;
   justify-content: center;
-  border-radius: 8px;
   margin: 12px auto;
   padding: 18px;
   width: 90%;

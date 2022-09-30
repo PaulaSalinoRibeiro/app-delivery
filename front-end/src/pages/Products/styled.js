@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const ButtonCart = styled.button`
   background: ${({ theme }) => theme.color.primario};
-  padding: 8px 42px;
   border-radius: 8px;
+  padding: 8px 42px;
   position: fixed;
   top: 86%;
   left: 86%;

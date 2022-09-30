@@ -7,58 +7,58 @@ export const Container = styled.div`
 `;
 
 export const User = styled.div`
+  align-items: center;
+  display: flex;
   background: ${({ theme }) => theme.color.terciario};
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   font-size: 18px;
-  margin-left: 52%;
-  display: flex;
   justify-content: center;
-  align-items: center;
+  margin-left: 52%;
   width: 732px;
 `;
 
 export const LogoutButton = styled.button`
-  width: 180px;
-  border: none;
   background: ${({ theme }) => theme.color.quaternario};
+  border: none;
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   font-size: 18px;
+  width: 180px;
 `;
 
 export const ButtonProducts = styled.button`
-  width: 332px;
-  border: none;
   background: ${({ theme }) => theme.color.secundario};
+  border: none;
   color: ${({ theme }) => theme.color.textDark};
   font-weight: bold;
   font-size: 18px;
+  width: 332px;
 `;
 
 export const ButtonMyOrders = styled.button`
-  width: 332px;
-  border: none;
   background: ${({ theme }) => theme.color.primario};
+  border: none;
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   font-size: 18px;
+  width: 332px;
 `;
 
 export const ButtonManageOrders = styled.button`
-  width: 332px;
-  border: none;
   background: ${({ theme }) => theme.color.secundario};
+  border: none;
   color: ${({ theme }) => theme.color.textDark};
   font-weight: bold;
   font-size: 18px;
+  width: 332px;
 `;
 
 export const ButtonManageUsers = styled.button`
-  width: 332px;
-  border: none;
   background: ${({ theme }) => theme.color.secundario};
+  border: none;
   color: ${({ theme }) => theme.color.textDark};
   font-weight: bold;
   font-size: 18px;
+  width: 332px;
 `;

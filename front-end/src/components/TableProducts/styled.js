@@ -8,39 +8,38 @@ export const Table = styled.table`
 `;
 
 export const TableRow = styled.tr`
-
   height: 28px;
 
   th:nth-child(1) {
-    width: 26px;
     font-weight: 400;
+    width: 26px;
   }
 
   th:nth-child(2) {
-    width: 68%;
     font-weight: 400;
+    width: 68%;
   }
 
   th:nth-child(3) {
-    width: 8%;
     font-weight: 400;
+    width: 8%;
   }
 
   th:nth-child(4) {
-    width: 8%;
     font-weight: 400;
+    width: 8%;
   }
 
   th:nth-child(5) {
-    width: 8%;
     font-weight: 400;
+    width: 8%;
   }
 
   td:nth-child(1) {
     background: ${({ theme }) => theme.color.secundario};
-    text-align: center;
-    font-weight: bold;
     border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
   }
 
   td:nth-child(2) {
@@ -50,29 +49,29 @@ export const TableRow = styled.tr`
   td:nth-child(3) {
     background: ${({ theme }) => theme.color.primario};
     color: ${({ theme }) => theme.color.textLight};
-    text-align: center;
     font-weight: bold;
+    text-align: center;
   }
 
   td:nth-child(4) {
     background: ${({ theme }) => theme.color.terciario};
     color: ${({ theme }) => theme.color.textLight};
-    text-align: center;
     font-weight: bold;
+    text-align: center;
   }
 
   td:nth-child(5) {
     background: ${({ theme }) => theme.color.quaternario};
     color: ${({ theme }) => theme.color.textLight};
-    text-align: center;
     font-weight: bold;
+    text-align: center;
   }
 `;
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.color.secundario};
+  border: none;
   color: ${({ theme }) => theme.color.textLight};
   font-weight: bold;
   padding: 12px;
-  border: none;
 `;
