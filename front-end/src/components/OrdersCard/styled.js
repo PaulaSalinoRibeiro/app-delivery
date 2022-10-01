@@ -30,7 +30,7 @@ export const Pedido = styled.p`
 `;
 
 export const Button = styled.button`
-  background: ${({ theme }, status) => {
+  background: ${({ theme, status }) => {
     switch (status) {
     case 'Pendente':
       return theme.color.pendente;
