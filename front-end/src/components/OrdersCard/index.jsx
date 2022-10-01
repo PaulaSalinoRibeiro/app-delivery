@@ -48,7 +48,6 @@ export default function OrdersCard(props) {
               {status}
             </span>
           </S.Button>
-
           <S.Details>
             <S.Date data-testid={ `${OrderDate}-${id}` }>
               {new Date(saleDate).toLocaleDateString('pt-br')}

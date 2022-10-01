@@ -68,7 +68,10 @@ export const Price = styled.p`
   padding: 8px 16px;
 `;
 
-export const WrappingAddress = styled.div``;
+export const WrappingAddress = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 
 export const Address = styled.p`
   margin-left: 26%;
