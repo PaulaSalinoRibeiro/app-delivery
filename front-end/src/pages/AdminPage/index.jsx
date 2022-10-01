@@ -4,6 +4,8 @@ import TableAdmin from '../../components/TableAdim';
 
 import { register, getAllUsers } from '../../services/api';
 
+import * as S from './styled';
+
 export default function AdminPage() {
   const [newUser, setNewuser] = useState({
     name: '',
@@ -63,50 +65,50 @@ export default function AdminPage() {
   return (
     <>
       <NavBar />
-      <h1>Cadastrar novo usuário</h1>
+      <S.Title>Cadastrar novo usuário</S.Title>
       {
         isUserExist && (
-          <p
+          <S.Message
             data-testid="admin_manage__element-invalid-register"
           >
             Cadastro do usuário já existe
-          </p>
+          </S.Message>
         )
       }
-      <form>
-        <label htmlFor="name">
+      <S.Form>
+        <S.Label htmlFor="name">
           Nome:
-          <input
+          <S.Input
             id="name"
             name="name"
             value={ newUser.name }
             onChange={ ({ target }) => handleChange({ target }) }
             data-testid="admin_manage__input-name"
           />
-        </label>
-        <label htmlFor="email">
+        </S.Label>
+        <S.Label htmlFor="email">
           Email:
-          <input
+          <S.Input
             id="email"
             name="email"
             value={ newUser.email }
             onChange={ ({ target }) => handleChange({ target }) }
             data-testid="admin_manage__input-email"
           />
-        </label>
-        <label htmlFor="password">
+        </S.Label>
+        <S.Label htmlFor="password">
           Password:
-          <input
+          <S.Input
             id="password"
             name="password"
             value={ newUser.password }
             onChange={ ({ target }) => handleChange({ target }) }
             data-testid="admin_manage__input-password"
           />
-        </label>
-        <label htmlFor="role">
+        </S.Label>
+        <S.Label htmlFor="role">
           Tipo
-          <select
+          <S.Select
             onChange={ ({ target }) => handleChange({ target }) }
             name="role"
             data-testid="admin_manage__select-role"
@@ -117,17 +119,18 @@ export default function AdminPage() {
             <option value="seller">
               Vendedor
             </option>
-          </select>
-        </label>
-        <button
+          </S.Select>
+        </S.Label>
+        <S.Button
           disabled={ !isInputValid }
           type="button"
           data-testid="admin_manage__button-register"
           onClick={ () => handleClick() }
         >
           CADASTRAR
-        </button>
-      </form>
+        </S.Button>
+      </S.Form>
+
       <TableAdmin user={ userList } />
     </>
   );
