@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ButtonCart = styled.button`
   background: ${({ theme }) => theme.color.primario};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   padding: 8px 42px;
   position: fixed;
   top: 86%;

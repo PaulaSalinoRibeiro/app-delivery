@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.section` 
   border: 3px solid ${({ theme }) => theme.color.background};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   display: flex;
   flex-direction: column;
   margin: 8px;

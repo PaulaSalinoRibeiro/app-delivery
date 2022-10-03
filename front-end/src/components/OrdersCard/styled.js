@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   background: ${({ theme }) => theme.color.background};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   margin-bottom: 24px;
   padding: 6px 12px;
   width: 28%;

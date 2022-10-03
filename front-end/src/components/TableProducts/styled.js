@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Table = styled.table`
   border: 1px solid ${({ theme }) => theme.color.background};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   padding: 32px;
   width: 100%;
 `;

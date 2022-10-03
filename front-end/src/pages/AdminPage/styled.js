@@ -12,6 +12,7 @@ export const Message = styled.p`
 export const Form = styled.form`
   border: 1px solid ${({ theme }) => theme.color.background};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   display: flex;
   justify-content: space-between;
   margin: 4%;

@@ -10,6 +10,7 @@ export const Form = styled.form`
   display: flex;
   border: 1px solid ${({ theme }) => theme.color.background};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   justify-content: space-between;
   padding: 32px;
   width: 97%;
@@ -46,6 +47,7 @@ export const Button = styled.button`
   background: ${({ theme }) => theme.color.primario};
   border: none;
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   font-weight: bold;
   margin-top: 24px;
   margin-left: 40%;

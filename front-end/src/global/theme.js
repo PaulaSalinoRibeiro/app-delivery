@@ -12,6 +12,9 @@ const theme = {
     background: '#B1C2BE',
     backgroundSecundario: '#F2FFFC',
   },
+  shadow: {
+    primario: '0px 3px 15px 0px rgba(0,0,0,0.71)',
+  }
 };
 
 export default theme;

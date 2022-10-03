@@ -23,6 +23,7 @@ export const Forms = styled.form`
   background: ${({ theme }) => theme.color.background};
   border: 3px solid ${({ theme }) => theme.color.primario};
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   display: flex;
   flex-direction: column;
   height: 444px;

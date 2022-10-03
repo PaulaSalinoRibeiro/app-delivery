@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.header`
   display: flex;
   background: ${({ theme }) => theme.color.background};
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   padding: 4px 0;
   margin-bottom: 32px;
   width: 100%;

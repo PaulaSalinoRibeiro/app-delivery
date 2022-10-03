@@ -7,6 +7,7 @@ export const Title = styled.h1`
 export const Table = styled.table`
   border: 1px solid ${({ theme }) => theme.color.background}; 
   border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow.primario};
   margin: 0 4%;
   padding: 24px 32px;
   width: 90%;
